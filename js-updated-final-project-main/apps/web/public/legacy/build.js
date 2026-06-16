@@ -44,6 +44,7 @@ const JS_FILES = [
   'js/pdf-preview.js',
   'js/audit-logs.js',
   'js/sdlc.js',
+  'js/model-dsr.js',
   'js/main.js'
 ];
 

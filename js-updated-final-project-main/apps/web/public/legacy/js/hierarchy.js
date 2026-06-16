@@ -243,6 +243,7 @@ function hasPermission(permission) {
 function hasModuleAccess(viewId) {
   if (!viewId) return true;
   if (viewId === 'audit-logs') return true;
+  if (viewId === 'model-dsr') return true;
   const rule = getRoleRule();
   if (rule.modules?.includes('*')) return true;
   return rule.modules?.includes(viewId);
@@ -253,7 +254,7 @@ function getFirstAllowedView() {
     'anx1', 'anx2', 'anx3', 'anx4', 'anx5', 'anx6', 'anx7',
     'annexure-b', 'annexure-c', 'annexure-d', 'annexure-e', 'annexure-f',
     'annexure-g', 'annexure-h', 'annexure-i', 'annexure-j', 'annexure-k',
-    'workflow', 'history', 'sdlc-portal', 'users', 'audit-logs'
+    'workflow', 'history', 'sdlc-portal', 'users', 'audit-logs', 'model-dsr'
   ];
   return preferredViews.find(viewId => hasModuleAccess(viewId) && document.getElementById('view-' + viewId)) || 'dashboard';
 }

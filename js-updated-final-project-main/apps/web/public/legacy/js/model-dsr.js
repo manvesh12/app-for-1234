@@ -22,14 +22,14 @@ let selectedTargetProjectId = null;
 
 async function fetchModelDsrs() {
   try {
-    const res = await fetch('/api/model-dsrs', {
-      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
-    });
-    if (!res.ok) throw new Error('Failed to fetch Model DSRs');
-    const data = await res.json();
-    renderModelDsrTable(data.data || []);
+    const data = await apiFetch('/model-dsrs');
+    renderModelDsrTable(Array.isArray(data) ? data : (data.data || []));
   } catch (err) {
     console.error(err);
+    const tbody = document.querySelector('#view-model-dsr tbody');
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 20px; color: var(--red);">${err.message || 'Failed to fetch Model DSRs'}</td></tr>`;
+    }
   }
 }
 
@@ -52,7 +52,7 @@ function renderModelDsrTable(templates) {
         <td style="padding: 12px;"><strong>${t.title}</strong><div style="font-size:11px;color:#888;">v${t.version}</div></td>
         <td style="padding: 12px;"><span class="badge" style="${t.status === 'PUBLISHED' ? 'background:#dcfce7; color:#166534;' : 'background:#e2e8f0; color:#475569;'}">${t.status}</span></td>
         <td style="padding: 12px;">${t.createdBy || 'Admin'}</td>
-        <td style="padding: 12px;">${new Date(t.createdAt).toLocaleDateString()}</td>
+        <td style="padding: 12px;">${t.createdAt ? new Date(t.createdAt).toLocaleDateString() : '-'}</td>
         <td style="padding: 12px;">
           ${t.status === 'DRAFT' ? `<button class="btn btn-saffron" style="padding: 4px 10px; font-size: 12px;" onclick="publishModelDsr('${t.id}')">Publish</button>` : ''}
           <button class="btn btn-outline" style="padding: 4px 10px; font-size: 12px;" onclick="alert('Viewing Model DSR ${t.id}')">View</button>
@@ -105,10 +105,10 @@ async function fetchTargetProjects(district) {
     
     listEl.innerHTML = filtered.map(p => `
       <label style="display:flex; align-items:center; gap:12px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer;">
-        <input type="radio" name="mdsr-target-project" value="${p.id}" onchange="selectTargetProject('${p.id}', '${p.projectName.replace(/'/g, "\\'")}')" style="width: 16px; height: 16px;">
+        <input type="radio" name="mdsr-target-project" value="${p.id}" onchange="selectTargetProject('${p.id}', '${(p.projectName || p.title || 'DSR Project').replace(/'/g, "\\'")}')" style="width: 16px; height: 16px;">
         <div style="flex: 1;">
-          <div style="font-weight: 600;">${p.projectName}</div>
-          <div style="font-size: 12px; color: var(--text-soft);">Status: ${p.status} &bull; Phase: ${p.phaseNo}</div>
+          <div style="font-weight: 600;">${p.projectName || p.title || 'DSR Project'}</div>
+          <div style="font-size: 12px; color: var(--text-soft);">Status: ${p.status || 'DRAFT'} &bull; Phase: ${p.phaseNo || p.phase || 1}</div>
         </div>
       </label>
     `).join('');
@@ -169,30 +169,17 @@ async function executeImport() {
     };
     
     // First save the Model DSR
-    const mdsrRes = await fetch('/api/model-dsrs', {
+    const mdsrData = await apiFetch('/model-dsrs', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      },
       body: JSON.stringify({ title: currentModelDsrName, description: `Uploaded for ${currentDistrict}` })
     });
-    
-    if (!mdsrRes.ok) throw new Error('Failed to create Model DSR metadata');
-    const mdsrData = await mdsrRes.json();
     const modelId = mdsrData.id || mdsrData.data?.id; // Adjust based on API structure
     
     // Then call the import
-    const importRes = await fetch(`/api/model-dsrs/${modelId}/import`, {
+    await apiFetch(`/model-dsrs/${modelId}/import`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      },
       body: JSON.stringify({ projectId: selectedTargetProjectId, config })
     });
-    
-    if (!importRes.ok) throw new Error('Import failed on server');
     
     // Finish progress
     progressBar.style.width = '100%';
@@ -230,11 +217,7 @@ async function executeImport() {
 async function publishModelDsr(id) {
   if (!confirm('Are you sure you want to publish this Model DSR? It will be used for future DSR generations.')) return;
   try {
-    const res = await fetch(`/api/model-dsrs/${id}/publish`, {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
-    });
-    if (!res.ok) throw new Error('Failed to publish Model DSR');
+    await apiFetch(`/model-dsrs/${id}/publish`, { method: 'POST' });
     alert('Model DSR Published successfully!');
     fetchModelDsrs();
   } catch (err) {
@@ -246,8 +229,8 @@ async function publishModelDsr(id) {
 // Hook into showView to refresh data when the view is opened
 const originalShowView = window.showView;
 if (typeof originalShowView === 'function') {
-  window.showView = function(viewId, param) {
-    originalShowView(viewId, param);
+  window.showView = function(viewId, param, push) {
+    originalShowView(viewId, param, push);
     if (viewId === 'model-dsr') {
       fetchModelDsrs();
     }
