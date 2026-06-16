@@ -14,7 +14,7 @@ function generateFinalPDF() {
   const addPageHeader=(section)=>{
     doc.setFillColor(...navyArr); doc.rect(0,0,W,14,'F');
     doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(255,255,255);
-    doc.text('DISTRICT SURVEY REPORT — GOVERNMENT OF PUNJAB · EMGSM 2020',W/2,8,{align:'center'});
+    doc.text('DISTRICT SURVEY REPORT - GOVERNMENT OF PUNJAB · EMGSM 2020',W/2,8,{align:'center'});
     doc.text(section,W-pad,8,{align:'right'});
     doc.setDrawColor(224,123,0); doc.setLineWidth(0.8); doc.line(pad,15,W-pad,15);
   };
@@ -94,8 +94,8 @@ function generateFinalPDF() {
         doc.addPage();
         doc.setFillColor(...navyArr); doc.rect(0, 0, W, 14, 'F');
         doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(255, 255, 255);
-        doc.text(`DISTRICT SURVEY REPORT — ${dist.toUpperCase()} · EMGSM 2020`, W/2, 8, {align:'center'});
-        doc.text(`CHAPTER ${i+1} — UPLOADED CONTENT (Pg ${pageIdx + 1}/${chapterPages.length})`, W-pad, 8, {align:'right'});
+        doc.text(`DISTRICT SURVEY REPORT - ${dist.toUpperCase()} · EMGSM 2020`, W/2, 8, {align:'center'});
+        doc.text(`CHAPTER ${i+1} - UPLOADED CONTENT (Pg ${pageIdx + 1}/${chapterPages.length})`, W-pad, 8, {align:'right'});
         doc.setDrawColor(224,123,0); doc.setLineWidth(0.8); doc.line(pad,15,W-pad,15);
         doc.setDrawColor(200,200,200); doc.setLineWidth(0.5);
         doc.rect(pad, 20, W - 2*pad, 260); // Frame
@@ -147,7 +147,7 @@ function generateFinalPDF() {
   if (S.plates.length) {
     doc.addPage(); addPageHeader('PLATE SECTION'); y=25;
     doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(...navyArr);
-    doc.text('PLATE SECTION — MAPS & SITE PHOTOGRAPHS', W/2, y, {align:'center'}); y+=10;
+    doc.text('PLATE SECTION - MAPS & SITE PHOTOGRAPHS', W/2, y, {align:'center'}); y+=10;
     S.plates.forEach((p,i)=>{
       if (y>250){doc.addPage();y=20;addPageHeader('PLATES');}
       doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(60,60,80);
@@ -175,30 +175,30 @@ function generateFinalPDF() {
     });
   }
   const allTablesData = [
-    { title: 'ANNEXURE I(a) — RIVERS', id: '#anx1-rivers' },
-    { title: 'ANNEXURE I(b) — DE-SILTATION', id: '#anx1-desilt' },
-    { title: 'ANNEXURE I(c) — PATTA LANDS', id: '#anx1-patta' },
-    { title: 'ANNEXURE I(d) — M-SAND PLANTS', id: '#anx1-msand' },
-    { title: 'ANNEXURE II(a) — MINING LEASES', id: '#anx2-leases' },
-    { title: 'ANNEXURE II(b) — PATTA LANDS', id: '#anx2-patta' },
-    { title: 'ANNEXURE II(c) — DE-SILTATION', id: '#anx2-desilt' },
-    { title: 'ANNEXURE II(d) — M-SAND PLANTS', id: '#anx2-msand' },
-    { title: 'ANNEXURE III(a) — CLUSTERS', id: '#anx3-clusters' },
-    { title: 'ANNEXURE III(b) — CONTIGUOUS CLUSTERS', id: '#anx3-contiguous' },
-    { title: 'ANNEXURE IV(a) — LEASE ROUTES', id: '#anx4-routes' },
-    { title: 'ANNEXURE IV(b) — CLUSTER ROUTES', id: '#anx4-cluster-routes' },
-    { title: 'ANNEXURE V — BENCH MARK & CORS', id: '#anx5-benchmarks' },
-    { title: 'ANNEXURE VI — FINAL CLUSTERS', id: '#anx6-final-clusters' },
-    { title: 'ANNEXURE VII — FINAL PATTA LANDS', id: '#anx7-patta-final' },
-    { title: 'ADDITIONAL — SAND GHATS COORDS', id: '#anx-coords-tbl' },
-    { title: 'ADDITIONAL — BENCH MARKS', id: '#anx-benchmark-tbl' },
-    { title: 'ADDITIONAL — CORS STATIONS', id: '#anx-cors-tbl' },
-    { title: 'ADDITIONAL — FINAL CLUSTERS', id: '#anx-final-clusters-tbl' },
-    { title: 'ADDITIONAL — FINAL PATTA LANDS', id: '#anx-patta-final-tbl' },
-    { title: 'ADDITIONAL — FINAL DE-SILTATION', id: '#anx-desilt-final-tbl' },
-    { title: 'DATA TABLE — PROJECTED DEMAND', id: '#demand-tbl' },
-    { title: 'DATA TABLE — AUCTIONED SITES', id: '#auction-tbl' },
-    { title: 'DATA TABLE — SOURCE SUMMARY', id: '#summary-tbl' }
+    { title: 'ANNEXURE I(a) - RIVERS', id: '#anx1-rivers' },
+    { title: 'ANNEXURE I(b) - DE-SILTATION', id: '#anx1-desilt' },
+    { title: 'ANNEXURE I(c) - PATTA LANDS', id: '#anx1-patta' },
+    { title: 'ANNEXURE I(d) - M-SAND PLANTS', id: '#anx1-msand' },
+    { title: 'ANNEXURE II(a) - MINING LEASES', id: '#anx2-leases' },
+    { title: 'ANNEXURE II(b) - PATTA LANDS', id: '#anx2-patta' },
+    { title: 'ANNEXURE II(c) - DE-SILTATION', id: '#anx2-desilt' },
+    { title: 'ANNEXURE II(d) - M-SAND PLANTS', id: '#anx2-msand' },
+    { title: 'ANNEXURE III(a) - CLUSTERS', id: '#anx3-clusters' },
+    { title: 'ANNEXURE III(b) - CONTIGUOUS CLUSTERS', id: '#anx3-contiguous' },
+    { title: 'ANNEXURE IV(a) - LEASE ROUTES', id: '#anx4-routes' },
+    { title: 'ANNEXURE IV(b) - CLUSTER ROUTES', id: '#anx4-cluster-routes' },
+    { title: 'ANNEXURE V - BENCH MARK & CORS', id: '#anx5-benchmarks' },
+    { title: 'ANNEXURE VI - FINAL CLUSTERS', id: '#anx6-final-clusters' },
+    { title: 'ANNEXURE VII - FINAL PATTA LANDS', id: '#anx7-patta-final' },
+    { title: 'ADDITIONAL - SAND GHATS COORDS', id: '#anx-coords-tbl' },
+    { title: 'ADDITIONAL - BENCH MARKS', id: '#anx-benchmark-tbl' },
+    { title: 'ADDITIONAL - CORS STATIONS', id: '#anx-cors-tbl' },
+    { title: 'ADDITIONAL - FINAL CLUSTERS', id: '#anx-final-clusters-tbl' },
+    { title: 'ADDITIONAL - FINAL PATTA LANDS', id: '#anx-patta-final-tbl' },
+    { title: 'ADDITIONAL - FINAL DE-SILTATION', id: '#anx-desilt-final-tbl' },
+    { title: 'DATA TABLE - PROJECTED DEMAND', id: '#demand-tbl' },
+    { title: 'DATA TABLE - AUCTIONED SITES', id: '#auction-tbl' },
+    { title: 'DATA TABLE - SOURCE SUMMARY', id: '#summary-tbl' }
   ];
   allTablesData.forEach((tblConfig, index) => {
     let tables = [];
@@ -210,7 +210,7 @@ function generateFinalPDF() {
     }
     tables.forEach((tableEl, tblIdx) => {
       if (tableEl && tableEl.rows.length > 1) { // ensure it has rows beyond header
-        doc.addPage(); addPageHeader(tblConfig.title.split(' — ')[0]); y=25;
+        doc.addPage(); addPageHeader(tblConfig.title.split(' - ')[0]); y=25;
         doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(...navyArr);
         let title = tblConfig.title;
         if (tblConfig.id === '#anx2-leases' && tables.length > 1) {
@@ -276,8 +276,8 @@ function generateFinalPDF() {
           doc.addPage();
           doc.setFillColor(...navyArr); doc.rect(0, 0, W, 14, 'F');
           doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(255, 255, 255);
-          doc.text(`DISTRICT SURVEY REPORT — ${dist.toUpperCase()} · EMGSM 2020`, W/2, 8, {align:'center'});
-          doc.text(`${currentPrefix} — UPLOADED DOCUMENT (Pg ${pageIdx + 1}/${S.uploadedPDFs[uploadKey].length})`, W-pad, 8, {align:'right'});
+          doc.text(`DISTRICT SURVEY REPORT - ${dist.toUpperCase()} · EMGSM 2020`, W/2, 8, {align:'center'});
+          doc.text(`${currentPrefix} - UPLOADED DOCUMENT (Pg ${pageIdx + 1}/${S.uploadedPDFs[uploadKey].length})`, W-pad, 8, {align:'right'});
           doc.setDrawColor(224,123,0); doc.setLineWidth(0.8); doc.line(pad,15,W-pad,15);
           doc.setDrawColor(200,200,200); doc.setLineWidth(0.5);
           doc.rect(pad, 20, W - 2*pad, 260); // Frame
@@ -297,7 +297,7 @@ function generateFinalPDF() {
     startY:y, margin:{left:pad,right:pad}, styles:{fontSize:9},
     headStyles:{fillColor:navyArr},
     head:[['#','Role','Officer','Status','Signed At','Method']],
-    body:S.signatures.map(s=>[s.order,s.role,s.name,s.signed?'SIGNED':'PENDING',s.signedAt||'—',s.method||'—'])
+    body:S.signatures.map(s=>[s.order,s.role,s.name,s.signed?'SIGNED':'PENDING',s.signedAt||'-',s.method||'-'])
   });
   if (S.sdlcData && S.sdlcData.projectId === S.activeProject.id && S.sdlcData.verified) {
     doc.addPage();
@@ -317,7 +317,7 @@ function generateFinalPDF() {
     y += linesDesc.length * 5 + 8;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.text('Annexure IV — Route Carrying Capacity Verification', pad, y);
+    doc.text('Annexure IV - Route Carrying Capacity Verification', pad, y);
     y += 5;
     doc.autoTable({
       startY: y,
@@ -331,7 +331,7 @@ function generateFinalPDF() {
     if (y > 220) { doc.addPage(); addPageHeader('SDLC RECONCILIATION REPORT'); y = 25; }
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.text('Annexure V — Elevation Bench Marks Verification', pad, y);
+    doc.text('Annexure V - Elevation Bench Marks Verification', pad, y);
     y += 5;
     doc.autoTable({
       startY: y,
@@ -345,7 +345,7 @@ function generateFinalPDF() {
     if (y > 220) { doc.addPage(); addPageHeader('SDLC RECONCILIATION REPORT'); y = 25; }
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.text('Annexure VI — Quarry Cluster Area Verification', pad, y);
+    doc.text('Annexure VI - Quarry Cluster Area Verification', pad, y);
     y += 5;
     doc.autoTable({
       startY: y,
@@ -359,7 +359,7 @@ function generateFinalPDF() {
     if (y > 220) { doc.addPage(); addPageHeader('SDLC RECONCILIATION REPORT'); y = 25; }
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.text('Annexure VII — Transportation Traffic Density Verification', pad, y);
+    doc.text('Annexure VII - Transportation Traffic Density Verification', pad, y);
     y += 5;
     doc.autoTable({
       startY: y,
@@ -1140,9 +1140,9 @@ async function submitForReview(ignoreWarning = false) {
 function renderAuthorityReports() {
   const el=document.getElementById('authority-reports'); if(!el) return;
   const reports=[
-    { id:1, title:'DSR — Jalandhar Sand Mining 2025-26', district:'Jalandhar', by:'Rajinder Kumar, SDO', at:'May 21, 2026 · 11:42 AM', status:'Awaiting Your Signature', done:1, sections:12 },
-    { id:2, title:'DSR — Ludhiana Sand Mining 2025-26', district:'Ludhiana', by:'Priya Sharma, SDO', at:'May 20, 2026 · 3:15 PM', status:'Under Review', done:1, sections:10 },
-    { id:3, title:'DSR — Patiala Sand Mining 2025-26', district:'Patiala', by:'Harjinder Singh, SDO', at:'May 19, 2026 · 9:00 AM', status:'Awaiting Your Signature', done:1, sections:11 }
+    { id:1, title:'DSR - Jalandhar Sand Mining 2025-26', district:'Jalandhar', by:'Rajinder Kumar, SDO', at:'May 21, 2026 · 11:42 AM', status:'Awaiting Your Signature', done:1, sections:12 },
+    { id:2, title:'DSR - Ludhiana Sand Mining 2025-26', district:'Ludhiana', by:'Priya Sharma, SDO', at:'May 20, 2026 · 3:15 PM', status:'Under Review', done:1, sections:10 },
+    { id:3, title:'DSR - Patiala Sand Mining 2025-26', district:'Patiala', by:'Harjinder Singh, SDO', at:'May 19, 2026 · 9:00 AM', status:'Awaiting Your Signature', done:1, sections:11 }
   ];
   el.innerHTML=reports.map(r=>`
     <div class="review-card">
@@ -1157,7 +1157,7 @@ function renderAuthorityReports() {
           <span class="badge badge-teal" style="display:inline-flex;align-items:center;gap:4px;"><i data-lucide="check-circle-2" style="width:12px;height:12px;"></i>${r.done}/5 signed</span>
           <span class="badge badge-navy" style="display:inline-flex;align-items:center;gap:4px;"><i data-lucide="file-text" style="width:12px;height:12px;"></i>${r.sections} sections</span>
           <div style="flex:1"></div>
-          <button class="btn btn-outline btn-sm" onclick="toast('PDF preview opened','info')">👁 Preview</button>
+          <button class="btn btn-outline btn-sm" onclick="toast('PDF preview opened','info')">Preview Preview</button>
           <button class="btn btn-navy btn-sm" onclick="toast('DSR-${r.district}-2025-26.pdf downloading...','info')">Download</button>
           <button class="btn btn-saffron btn-sm" onclick="openAuthoritySign(${r.id},'${r.title}')">Sign Now</button>
         </div>

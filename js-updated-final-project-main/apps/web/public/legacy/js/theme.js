@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════
-   THEME — Light default, optional dark mode
+   THEME - Light default, optional dark mode
 ══════════════════════════════════════ */
 const THEME_STORAGE_KEY = 'theme';
 const THEME_LIGHT = 'light';

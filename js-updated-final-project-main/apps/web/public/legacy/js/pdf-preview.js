@@ -607,7 +607,7 @@ const pdfPreview = {
         uploaded.forEach((img, idx) => {
           pages.push({
             src: img,
-            label: uploaded.length > 1 ? `${sectionLabel} — Page ${idx + 1}` : sectionLabel
+            label: uploaded.length > 1 ? `${sectionLabel} - Page ${idx + 1}` : sectionLabel
           });
         });
         return;
@@ -716,7 +716,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: imgs.length > 1
-              ? `Chapter ${i + 1} — Page ${idx + 1}`
+              ? `Chapter ${i + 1} - Page ${idx + 1}`
               : `Chapter ${i + 1}: ${ch.name}`
           });
         });
@@ -760,7 +760,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Plate ${i + 1} — Page ${idx + 1}`
+              ? `Plate ${i + 1} - Page ${idx + 1}`
               : `Plate ${i + 1}: ${p.name}`
           });
         });
@@ -785,7 +785,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure B — Page ${idx + 1}`
+              ? `Annexure B - Page ${idx + 1}`
               : `Annexure B: ${p.name}`
           });
         });
@@ -804,7 +804,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure C — Page ${idx + 1}`
+              ? `Annexure C - Page ${idx + 1}`
               : `Annexure C: ${p.name}`
           });
         });
@@ -823,7 +823,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure D — Page ${idx + 1}`
+              ? `Annexure D - Page ${idx + 1}`
               : `Annexure D: ${p.name}`
           });
         });
@@ -842,7 +842,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure E — Page ${idx + 1}`
+              ? `Annexure E - Page ${idx + 1}`
               : `Annexure E: ${p.name}`
           });
         });
@@ -861,7 +861,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure G — Page ${idx + 1}`
+              ? `Annexure G - Page ${idx + 1}`
               : `Annexure G: ${p.name}`
           });
         });
@@ -880,7 +880,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure H — Page ${idx + 1}`
+              ? `Annexure H - Page ${idx + 1}`
               : `Annexure H: ${p.name}`
           });
         });
@@ -899,7 +899,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure I — Page ${idx + 1}`
+              ? `Annexure I - Page ${idx + 1}`
               : `Annexure I: ${p.name}`
           });
         });
@@ -918,7 +918,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure J — Page ${idx + 1}`
+              ? `Annexure J - Page ${idx + 1}`
               : `Annexure J: ${p.name}`
           });
         });

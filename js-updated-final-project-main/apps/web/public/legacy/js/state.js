@@ -23,20 +23,20 @@ const S = {
   },
   phaseChangeLog: [],
   chapters: [
-    { id:1, name:'CHAPTER 1 — INTRODUCTION', summary:'Overview of the district and purpose of the DSR under EMGSM 2020 guidelines.' },
-    { id:2, name:'CHAPTER 2 — OVERVIEW OF MINING ACTIVITIES IN THE DISTRICT', summary:'Current and historical sand mining activities, lease details, and district statistics.' },
-    { id:3, name:'CHAPTER 3 — PROCESS OF DEPOSITION OF SEDIMENTS IN THE RIVERS OF THE DISTRICT', summary:'River morphology, sedimentation rates, and annual replenishment estimates.' },
-    { id:4, name:'CHAPTER 4 — GENERAL PROFILE OF THE DISTRICT', summary:'Geographic, demographic, and administrative profile of the district.' },
-    { id:5, name:'CHAPTER 5 — PHYSIOGRAPHY OF THE DISTRICT', summary:'Terrain, drainage patterns, river systems, and physical features.' },
-    { id:6, name:'CHAPTER 6 — GEOLOGY AND MINERAL WEALTH', summary:'Geological formations, mineral deposits, and subsurface characteristics.' },
-    { id:7, name:'CHAPTER 7 — ESTIMATION OF DEPOSITS AND REPLENISHMENT STUDIES', summary:'Scientific estimation of available sand deposits and annual natural replenishment.' },
-    { id:8, name:'CHAPTER 8 — TRANSPORT', summary:'Transportation infrastructure, road conditions, and logistics for mining operations.' },
-    { id:9, name:'CHAPTER 9 — REMEDIAL MEASURE TO MITIGATE THE IMPACT OF MINING', summary:'Environmental safeguards, monitoring mechanisms, and impact mitigation plans.' },
-    { id:10, name:'CHAPTER 10 — CONCLUSION', summary:'Summary findings, recommendations, and compliance declarations.' }
+    { id:1, name:'CHAPTER 1 - INTRODUCTION', summary:'Overview of the district and purpose of the DSR under EMGSM 2020 guidelines.' },
+    { id:2, name:'CHAPTER 2 - OVERVIEW OF MINING ACTIVITIES IN THE DISTRICT', summary:'Current and historical sand mining activities, lease details, and district statistics.' },
+    { id:3, name:'CHAPTER 3 - PROCESS OF DEPOSITION OF SEDIMENTS IN THE RIVERS OF THE DISTRICT', summary:'River morphology, sedimentation rates, and annual replenishment estimates.' },
+    { id:4, name:'CHAPTER 4 - GENERAL PROFILE OF THE DISTRICT', summary:'Geographic, demographic, and administrative profile of the district.' },
+    { id:5, name:'CHAPTER 5 - PHYSIOGRAPHY OF THE DISTRICT', summary:'Terrain, drainage patterns, river systems, and physical features.' },
+    { id:6, name:'CHAPTER 6 - GEOLOGY AND MINERAL WEALTH', summary:'Geological formations, mineral deposits, and subsurface characteristics.' },
+    { id:7, name:'CHAPTER 7 - ESTIMATION OF DEPOSITS AND REPLENISHMENT STUDIES', summary:'Scientific estimation of available sand deposits and annual natural replenishment.' },
+    { id:8, name:'CHAPTER 8 - TRANSPORT', summary:'Transportation infrastructure, road conditions, and logistics for mining operations.' },
+    { id:9, name:'CHAPTER 9 - REMEDIAL MEASURE TO MITIGATE THE IMPACT OF MINING', summary:'Environmental safeguards, monitoring mechanisms, and impact mitigation plans.' },
+    { id:10, name:'CHAPTER 10 - CONCLUSION', summary:'Summary findings, recommendations, and compliance declarations.' }
   ],
   plates: [
-    { id:101, name:'Plate 1 — Pre/Post Monsoon Cross Section', summary:'Auto-generated elevation chart for sand volume calculation.', graphId: 'g1' },
-    { id:102, name:'Plate 2 — Geological Subsurface Map', summary:'Detailed lithological boundaries and soil types.', graphId: '' }
+    { id:101, name:'Plate 1 - Pre/Post Monsoon Cross Section', summary:'Auto-generated elevation chart for sand volume calculation.', graphId: 'g1' },
+    { id:102, name:'Plate 2 - Geological Subsurface Map', summary:'Detailed lithological boundaries and soil types.', graphId: '' }
   ],
   graphs: [
     { 

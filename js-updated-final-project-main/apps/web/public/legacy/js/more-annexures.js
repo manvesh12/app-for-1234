@@ -28,10 +28,10 @@ function registerSimpleAnnexure(letter) {
       const fileInfoHTML = p.fileName ? `
         <div class="file-item" style="margin-top:10px; background:var(--off); border:1px solid var(--border); max-width:480px; display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:var(--r-sm);">
           <div style="display:flex; align-items:center; gap:6px;">
-            <div class="file-icon" style="background:var(--teal-lt); color:var(--teal); padding:6px; border-radius:var(--r-xs); font-size:14px;">ðŸ“„</div>
+            <div class="file-icon" style="background:var(--teal-lt); color:var(--teal); padding:6px; border-radius:var(--r-xs); font-size:14px;">PDF</div>
             <div style="line-height:1.2;">
               <div style="font-size:11.5px; font-weight:600; color:var(--text);">${p.fileName}</div>
-              <div style="font-size:9.5px; color:var(--text-faint);">${p.fileSize || ''} Â· ${p.pages ? p.pages.length : 0} Page(s)</div>
+              <div style="font-size:9.5px; color:var(--text-faint);">${p.fileSize || ''} · ${p.pages ? p.pages.length : 0} Page(s)</div>
             </div>
           </div>
           <div style="display:flex; gap:6px;">
@@ -43,7 +43,7 @@ function registerSimpleAnnexure(letter) {
         </div>` : `
         <div>
           <label class="btn btn-xs btn-outline" style="cursor:pointer;">
-            ðŸ“Ž Upload PDF/Image <input type="file" accept=".pdf,image/*" hidden onchange="handleAnnexure${letter}Upload(event,${p.id})">
+            Upload PDF/Image <input type="file" accept=".pdf,image/*" hidden onchange="handleAnnexure${letter}Upload(event,${p.id})">
           </label>
         </div>`;
       return `
@@ -57,9 +57,9 @@ function registerSimpleAnnexure(letter) {
         </div>
       </div>
       <div style="display:flex; gap:5px; flex-shrink:0">
-        ${i > 0 ? `<button class="btn btn-xs btn-outline" onclick="moveAnnexure${letter}(${i},-1)">â†‘</button>` : ''}
-        ${i < S[stateKey].length - 1 ? `<button class="btn btn-xs btn-outline" onclick="moveAnnexure${letter}(${i},1)">â†“</button>` : ''}
-        <button class="btn btn-xs btn-danger" onclick="deleteAnnexure${letter}Req(${p.id})">âœ•</button>
+        ${i > 0 ? `<button class="btn btn-xs btn-outline" onclick="moveAnnexure${letter}(${i},-1)">Up</button>` : ''}
+        ${i < S[stateKey].length - 1 ? `<button class="btn btn-xs btn-outline" onclick="moveAnnexure${letter}(${i},1)">Down</button>` : ''}
+        <button class="btn btn-xs btn-danger" onclick="deleteAnnexure${letter}Req(${p.id})">Delete</button>
       </div>
     </div>`;
     }).join('');
@@ -67,7 +67,7 @@ function registerSimpleAnnexure(letter) {
   };
   window[`addAnnexure${letter}`] = function() {
     ensureDefaultRow();
-    S[stateKey].push({ id: Date.now(), name: 'NEW ENTRY â€” ENTER TITLE', summary: 'Enter description here...', fileName: null, fileSize: null, pages: null });
+    S[stateKey].push({ id: Date.now(), name: 'NEW ENTRY - ENTER TITLE', summary: 'Enter description here...', fileName: null, fileSize: null, pages: null });
     window[renderName]();
     if (window.debouncedSaveState) window.debouncedSaveState();
   };
@@ -102,7 +102,7 @@ function registerSimpleAnnexure(letter) {
         renderPdfToImages(f, (err, imgs) => {
           if (err) {
             console.error(err);
-            toast('âš ï¸ PDF render failed, falling back to basic preview', 'error');
+            toast('PDF render failed, falling back to basic preview', 'error');
             p.pages = [URL.createObjectURL(f)];
             p.fileSize = sizeStr;
             finish();
@@ -110,7 +110,7 @@ function registerSimpleAnnexure(letter) {
           }
           p.pages = imgs;
           p.fileSize = sizeStr;
-          toast(`ðŸ“„ ${f.name} processed and loaded!`, 'success');
+          toast(`${f.name} processed and loaded!`, 'success');
           finish();
         });
       } else {
@@ -124,12 +124,12 @@ function registerSimpleAnnexure(letter) {
         p.pages = [evt.target.result];
         p.fileName = f.name;
         p.fileSize = sizeStr;
-        toast(`ðŸ–¼ï¸ ${f.name} uploaded successfully!`, 'success');
+        toast(`${f.name} uploaded successfully!`, 'success');
         finish();
       };
       reader.readAsDataURL(f);
     } else {
-      toast('âŒ Unsupported file format. Please upload a PDF or an Image.', 'error');
+      toast('Unsupported file format. Please upload a PDF or an image.', 'error');
     }
   };
   window[`deleteAnnexure${letter}File`] = function(id) {

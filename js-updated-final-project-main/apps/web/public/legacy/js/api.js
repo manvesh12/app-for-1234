@@ -25,7 +25,7 @@ async function apiFetch(endpoint, options = {}) {
             var msg = data.message || data.error || '';
             if (!msg && bodyText && !bodyText.startsWith('{')) msg = bodyText.slice(0, 200);
             if (!msg) msg = 'HTTP ' + response.status + ' ' + response.statusText;
-            var prefix = !localStorage.getItem('dsr_token') ? 'Not logged in — ' : '';
+            var prefix = !localStorage.getItem('dsr_token') ? 'Not logged in - ' : '';
             var err = new Error(prefix + msg);
             if (response.status === 409 && data.warning) {
                 err.isWarning = true;
@@ -63,7 +63,7 @@ async function apiUploadFile(file) {
             var msg = errData.message || errData.error || '';
             if (!msg && bodyText && !bodyText.startsWith('{')) msg = bodyText.slice(0, 200);
             if (!msg) msg = 'HTTP ' + response.status + ' ' + response.statusText;
-            var prefix = !localStorage.getItem('dsr_token') ? 'Not logged in — ' : '';
+            var prefix = !localStorage.getItem('dsr_token') ? 'Not logged in - ' : '';
             throw new Error(prefix + msg);
         }
         return data;

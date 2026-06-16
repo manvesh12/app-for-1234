@@ -1,6 +1,6 @@
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANNEXURE V â€” SAND MINING REPORT
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══════════════════════════════════════
+   ANNEXURE V - SAND MINING REPORT
+   ══════════════════════════════════════ */
 window.S = window.S || { activeProject: { id: 'demo_proj', anx5PdfName: null }, projects: [] };
 window.toast = window.toast || function (msg, type) { alert('[' + (type || 'INFO').toUpperCase() + '] ' + msg); };
 window.initLucide = window.initLucide || function () { if (window.lucide) lucide.createIcons(); };

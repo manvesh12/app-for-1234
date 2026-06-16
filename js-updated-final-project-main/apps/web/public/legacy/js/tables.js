@@ -29,7 +29,7 @@ function downloadAnxTemplate(n) {
     csvContent = "Owner Name,Patta No.,Area (Ha),District,Tehsil,Village,Remarks\n";
     filename = "Annexure_VII_Patta_Lands_Template.csv";
   } else {
-    toast(`⬇ Annexure ${toRoman(n)} Excel template downloaded`,'success');
+    toast(`Download Annexure ${toRoman(n)} Excel template downloaded`,'success');
     return;
   }
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -41,7 +41,7 @@ function downloadAnxTemplate(n) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  toast(`⬇ Annexure ${toRoman(n)} Excel template downloaded`,'success');
+  toast(`Download Annexure ${toRoman(n)} Excel template downloaded`,'success');
 }
 window.addEventListener('DOMContentLoaded', () => {
   const originalShowView = window.showView;
@@ -105,7 +105,7 @@ function handleAnxUpload(e,n) {
       toast(`✅ Annexure ${toRoman(n)} uploaded and ${updated} table(s) updated`,'success');
     } catch (err) {
       console.error(err);
-      toast(`⚠️ Upload failed: ${err.message}`,'error');
+      toast(`Warning: Upload failed: ${err.message}`,'error');
     }
   };
   reader.readAsArrayBuffer(file);
@@ -216,7 +216,7 @@ function handleTableUpload(e) {
       const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
       if (populateTableFromSheet(tableId, rows)) toast('✅ Table updated from Excel','success');
       else toast('No data found in sheet','warn');
-    } catch (err) { console.error(err); toast('⚠️ Upload failed','error'); }
+    } catch (err) { console.error(err); toast('Warning: Upload failed','error'); }
   };
   reader.readAsArrayBuffer(f);
   e.target.value = '';
@@ -229,7 +229,7 @@ function exportAnxPDF(n) {
   } else if (n === 7 && typeof exportAnx7PDF === 'function') {
     exportAnx7PDF();
   } else {
-    toast(`📄 Annexure ${typeof n==='number'?toRoman(n):n} PDF exported`,'success');
+    toast(`PDF Annexure ${typeof n==='number'?toRoman(n):n} PDF exported`,'success');
   }
 }
 function toRoman(n) { return ['I','II','III','IV','V','VI','VII'][n-1]||n; }
@@ -279,8 +279,8 @@ function updateDemandTotals() {
     const el=document.getElementById('dt-'+col); if(el) el.textContent=fmtN(total,0);
   }
 }
-function exportDemandExcel() { toast('⬇ Demand table Excel downloaded','success'); }
-function exportDemandPDF() { toast('📄 Demand table PDF exported','success'); }
+function exportDemandExcel() { toast('Download Demand table Excel downloaded','success'); }
+function exportDemandPDF() { toast('PDF Demand table PDF exported','success'); }
 /* ══════════════════════════════════════
    SUMMARY TABLE
 ══════════════════════════════════════ */
@@ -321,7 +321,7 @@ function updateSummaryTotals() {
     const el=document.getElementById(id); if(el) el.textContent=fmtN(total,2);
   });
 }
-function exportSummaryPDF() { toast('📄 Summary table PDF exported','success'); }
+function exportSummaryPDF() { toast('PDF Summary table PDF exported','success'); }
 /* ══════════════════════════════════════
    AUCTION TABLE
 ══════════════════════════════════════ */
@@ -335,7 +335,7 @@ function initAuctionTable() {
     <td><select ${isReadOnly ? 'disabled' : ''}><option>PMS</option><option>CMS</option><option>S</option><option>C</option><option>RSM</option></select></td>
     <td ${cEd}>01-Apr-2023</td><td ${cEd}>15-Apr-2023</td>
     <td ${cEd}>285000</td><td ${cEd}>142500</td><td ${cEd}>142500</td>
-    <td ${cEd}>Active</td><td ${cEd}>—</td><td ${cEd}>—</td>
+    <td ${cEd}>Active</td><td ${cEd}>-</td><td ${cEd}>-</td>
     <td ${cEd}>Running as per schedule</td>
     <td style="${isReadOnly ? 'display:none;' : ''}"><button class="btn btn-xs btn-danger" onclick="delRow(this)" style="display:inline-flex;align-items:center;justify-content:center;padding:4px;"><i data-lucide="trash-2" style="width:12px;height:12px;"></i></button></td>
   </tr>`;
@@ -349,12 +349,12 @@ function addAuctionRow() {
     <td contenteditable>${n}</td>
     <td contenteditable>Site Name ${n}</td>
     <td><select><option>PMS</option><option>CMS</option><option>S</option><option>C</option><option>RSM</option></select></td>
-    <td contenteditable>—</td><td contenteditable>—</td>
+    <td contenteditable>-</td><td contenteditable>-</td>
     <td contenteditable>0</td><td contenteditable>0</td><td contenteditable>0</td>
-    <td contenteditable>Pending</td><td contenteditable>—</td><td contenteditable>—</td>
-    <td contenteditable>—</td>
+    <td contenteditable>Pending</td><td contenteditable>-</td><td contenteditable>-</td>
+    <td contenteditable>-</td>
     <td><button class="btn btn-xs btn-danger" onclick="delRow(this)" style="display:inline-flex;align-items:center;justify-content:center;padding:4px;"><i data-lucide="trash-2" style="width:12px;height:12px;"></i></button></td>
   </tr>`);
   if (window.initLucide) window.initLucide();
 }
-function exportAuctionPDF() { toast('📄 Auctioned sites PDF exported','success'); }
+function exportAuctionPDF() { toast('PDF Auctioned sites PDF exported','success'); }

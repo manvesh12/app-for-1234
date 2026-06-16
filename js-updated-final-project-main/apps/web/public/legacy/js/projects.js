@@ -86,7 +86,7 @@ function updateTopBarProjectsDropdown() {
 function getProjectLiveProgressStatus(p) {
   if (!p) return '<span style="color:var(--text-soft)">No project selected</span>';
   const progress = Number(p.progress) || 0;
-  if (p.status === 'Completed') return '<span style="color:var(--green)">✓ Fully Approved & Generated</span>';
+  if (p.status === 'Completed') return '<span style="color:var(--green)">OK Fully Approved & Generated</span>';
   if (progress >= 100) return '<span style="color:var(--teal)">Pending Authority E-Signatures</span>';
   if (progress > 80) return '<span style="color:var(--saffron)">Finalizing Annexures & Tables</span>';
   if (progress > 40) return '<span style="color:var(--saffron)">Uploading Chapters & Plates</span>';
@@ -674,7 +674,7 @@ async function persistProjectState() {
   }
 }
 async function createProject() {
-  const title = document.getElementById('proj-title').value || `District Survey Report — ${document.getElementById('proj-district').value}`;
+  const title = document.getElementById('proj-title').value || `District Survey Report - ${document.getElementById('proj-district').value}`;
   const payload = {
     projectName: title,
     district: document.getElementById('proj-district').value,

@@ -27,7 +27,7 @@ async function apiFetch(endpoint, options = {}) {
             var msg = data.message || data.error || '';
             if (!msg && bodyText && !bodyText.startsWith('{')) msg = bodyText.slice(0, 200);
             if (!msg) msg = 'HTTP ' + response.status + ' ' + response.statusText;
-            var prefix = !localStorage.getItem('dsr_token') ? 'Not logged in — ' : '';
+            var prefix = !localStorage.getItem('dsr_token') ? 'Not logged in - ' : '';
             var err = new Error(prefix + msg);
             if (response.status === 409 && data.warning) {
                 err.isWarning = true;
@@ -65,7 +65,7 @@ async function apiUploadFile(file) {
             var msg = errData.message || errData.error || '';
             if (!msg && bodyText && !bodyText.startsWith('{')) msg = bodyText.slice(0, 200);
             if (!msg) msg = 'HTTP ' + response.status + ' ' + response.statusText;
-            var prefix = !localStorage.getItem('dsr_token') ? 'Not logged in — ' : '';
+            var prefix = !localStorage.getItem('dsr_token') ? 'Not logged in - ' : '';
             throw new Error(prefix + msg);
         }
         return data;
@@ -192,20 +192,20 @@ const S = {
   },
   phaseChangeLog: [],
   chapters: [
-    { id:1, name:'CHAPTER 1 — INTRODUCTION', summary:'Overview of the district and purpose of the DSR under EMGSM 2020 guidelines.' },
-    { id:2, name:'CHAPTER 2 — OVERVIEW OF MINING ACTIVITIES IN THE DISTRICT', summary:'Current and historical sand mining activities, lease details, and district statistics.' },
-    { id:3, name:'CHAPTER 3 — PROCESS OF DEPOSITION OF SEDIMENTS IN THE RIVERS OF THE DISTRICT', summary:'River morphology, sedimentation rates, and annual replenishment estimates.' },
-    { id:4, name:'CHAPTER 4 — GENERAL PROFILE OF THE DISTRICT', summary:'Geographic, demographic, and administrative profile of the district.' },
-    { id:5, name:'CHAPTER 5 — PHYSIOGRAPHY OF THE DISTRICT', summary:'Terrain, drainage patterns, river systems, and physical features.' },
-    { id:6, name:'CHAPTER 6 — GEOLOGY AND MINERAL WEALTH', summary:'Geological formations, mineral deposits, and subsurface characteristics.' },
-    { id:7, name:'CHAPTER 7 — ESTIMATION OF DEPOSITS AND REPLENISHMENT STUDIES', summary:'Scientific estimation of available sand deposits and annual natural replenishment.' },
-    { id:8, name:'CHAPTER 8 — TRANSPORT', summary:'Transportation infrastructure, road conditions, and logistics for mining operations.' },
-    { id:9, name:'CHAPTER 9 — REMEDIAL MEASURE TO MITIGATE THE IMPACT OF MINING', summary:'Environmental safeguards, monitoring mechanisms, and impact mitigation plans.' },
-    { id:10, name:'CHAPTER 10 — CONCLUSION', summary:'Summary findings, recommendations, and compliance declarations.' }
+    { id:1, name:'CHAPTER 1 - INTRODUCTION', summary:'Overview of the district and purpose of the DSR under EMGSM 2020 guidelines.' },
+    { id:2, name:'CHAPTER 2 - OVERVIEW OF MINING ACTIVITIES IN THE DISTRICT', summary:'Current and historical sand mining activities, lease details, and district statistics.' },
+    { id:3, name:'CHAPTER 3 - PROCESS OF DEPOSITION OF SEDIMENTS IN THE RIVERS OF THE DISTRICT', summary:'River morphology, sedimentation rates, and annual replenishment estimates.' },
+    { id:4, name:'CHAPTER 4 - GENERAL PROFILE OF THE DISTRICT', summary:'Geographic, demographic, and administrative profile of the district.' },
+    { id:5, name:'CHAPTER 5 - PHYSIOGRAPHY OF THE DISTRICT', summary:'Terrain, drainage patterns, river systems, and physical features.' },
+    { id:6, name:'CHAPTER 6 - GEOLOGY AND MINERAL WEALTH', summary:'Geological formations, mineral deposits, and subsurface characteristics.' },
+    { id:7, name:'CHAPTER 7 - ESTIMATION OF DEPOSITS AND REPLENISHMENT STUDIES', summary:'Scientific estimation of available sand deposits and annual natural replenishment.' },
+    { id:8, name:'CHAPTER 8 - TRANSPORT', summary:'Transportation infrastructure, road conditions, and logistics for mining operations.' },
+    { id:9, name:'CHAPTER 9 - REMEDIAL MEASURE TO MITIGATE THE IMPACT OF MINING', summary:'Environmental safeguards, monitoring mechanisms, and impact mitigation plans.' },
+    { id:10, name:'CHAPTER 10 - CONCLUSION', summary:'Summary findings, recommendations, and compliance declarations.' }
   ],
   plates: [
-    { id:101, name:'Plate 1 — Pre/Post Monsoon Cross Section', summary:'Auto-generated elevation chart for sand volume calculation.', graphId: 'g1' },
-    { id:102, name:'Plate 2 — Geological Subsurface Map', summary:'Detailed lithological boundaries and soil types.', graphId: '' }
+    { id:101, name:'Plate 1 - Pre/Post Monsoon Cross Section', summary:'Auto-generated elevation chart for sand volume calculation.', graphId: 'g1' },
+    { id:102, name:'Plate 2 - Geological Subsurface Map', summary:'Detailed lithological boundaries and soil types.', graphId: '' }
   ],
   graphs: [
     { 
@@ -1614,10 +1614,10 @@ function showView(id, btn, push = true) {
   const titles = {
     'dashboard': 'Dashboard', 'projects': 'My DSR Projects', 'workflow': 'Report Workflow',
     'front-matter': 'Front Matter', 'chapters': 'Chapters (10)', 'plates': 'Plate Section',
-    'graphs': 'Cross Section Graph Generator', 'anx1': 'Annexure I — Sand Sources',
-    'anx2': 'Annexure II — Mining Leases', 'anx3': 'Annexure III — Cluster Details',
-    'anx4': 'Annexure IV — Transportation Routes', 'anx5': 'Annexure V — Bench Mark & CORS',
-    'anx6': 'Annexure VI — Final Cluster Details', 'anx7': 'Annexure VII — Transportation Routes',
+    'graphs': 'Cross Section Graph Generator', 'anx1': 'Annexure I - Sand Sources',
+    'anx2': 'Annexure II - Mining Leases', 'anx3': 'Annexure III - Cluster Details',
+    'anx4': 'Annexure IV - Transportation Routes', 'anx5': 'Annexure V - Bench Mark & CORS',
+    'anx6': 'Annexure VI - Final Cluster Details', 'anx7': 'Annexure VII - Transportation Routes',
     'annexure-b': 'Annexure B', 'annexure-c': 'Annexure C', 'annexure-d': 'Annexure D',
     'annexure-e': 'Annexure E', 'annexure-f': 'Annexure F', 'annexure-g': 'Annexure G',
     'annexure-h': 'Annexure H', 'annexure-i': 'Annexure I', 'annexure-j': 'Annexure J',
@@ -1988,7 +1988,7 @@ function refreshThemeDependentUI() {
   if (typeof renderDashboard === 'function') renderDashboard();
   if (typeof renderProjects === 'function') renderProjects();
   if (window.initLucide) initLucide();
-  /* Charts are heavy — defer so district/project cards repaint first */
+  /* Charts are heavy - defer so district/project cards repaint first */
   if (typeof renderGraphs === 'function') {
     requestAnimationFrame(() => renderGraphs());
   }
@@ -2632,7 +2632,7 @@ function updateTopBarProjectsDropdown() {
 function getProjectLiveProgressStatus(p) {
   if (!p) return '<span style="color:var(--text-soft)">No project selected</span>';
   const progress = Number(p.progress) || 0;
-  if (p.status === 'Completed') return '<span style="color:var(--green)">✓ Fully Approved & Generated</span>';
+  if (p.status === 'Completed') return '<span style="color:var(--green)">OK Fully Approved & Generated</span>';
   if (progress >= 100) return '<span style="color:var(--teal)">Pending Authority E-Signatures</span>';
   if (progress > 80) return '<span style="color:var(--saffron)">Finalizing Annexures & Tables</span>';
   if (progress > 40) return '<span style="color:var(--saffron)">Uploading Chapters & Plates</span>';
@@ -3220,7 +3220,7 @@ async function persistProjectState() {
   }
 }
 async function createProject() {
-  const title = document.getElementById('proj-title').value || `District Survey Report — ${document.getElementById('proj-district').value}`;
+  const title = document.getElementById('proj-title').value || `District Survey Report - ${document.getElementById('proj-district').value}`;
   const payload = {
     projectName: title,
     district: document.getElementById('proj-district').value,
@@ -3435,12 +3435,12 @@ function handleFMUpload(e, type) {
   if (el) {
     el.innerHTML = `
       <div class="file-item" style="margin-top:10px">
-        <div class="file-icon" style="background:#fee2e2">📄</div>
+        <div class="file-icon" style="background:#fee2e2">PDF</div>
         <div class="file-info">
           <div class="file-name">${f.name}</div>
           <div class="file-meta">${(f.size / 1024).toFixed(1)} KB</div>
         </div>
-        <span class="badge badge-green">✓ Ready</span>
+        <span class="badge badge-green">OK Ready</span>
       </div>`;
   }
   if (f.type === 'application/pdf') {
@@ -3450,7 +3450,7 @@ function handleFMUpload(e, type) {
     renderPdfToImages(f, (err, imgs) => {
       if (err) {
         console.error(err);
-        toast('⚠️ PDF render failed, falling back to basic preview', 'error');
+        toast('Warning: PDF render failed, falling back to basic preview', 'error');
         const url = URL.createObjectURL(f);
         if (!S.uploadedPDFs) S.uploadedPDFs = {};
         S.uploadedPDFs[type] = [url];
@@ -3464,7 +3464,7 @@ function handleFMUpload(e, type) {
       S.uploadedPDFs[type] = imgs;
       if (!S.frontMatterFiles) S.frontMatterFiles = {};
       S.frontMatterFiles[type] = { ...(S.frontMatterFiles[type] || {}), pages: imgs.length };
-      toast(`📄 ${f.name} uploaded and processed successfully!`, 'success');
+      toast(`PDF ${f.name} uploaded and processed successfully!`, 'success');
       if (window.pdfPreview) window.pdfPreview.notifyUpdate('front-matter');
       if (window.debouncedSaveState) window.debouncedSaveState();
     });
@@ -3474,7 +3474,7 @@ function handleFMUpload(e, type) {
     S.uploadedPDFs[type] = [url];
     if (!S.frontMatterFiles) S.frontMatterFiles = {};
     S.frontMatterFiles[type] = { ...(S.frontMatterFiles[type] || {}), pages: 1 };
-    toast(`📄 ${f.name} uploaded`, 'success');
+    toast(`PDF ${f.name} uploaded`, 'success');
     if (window.pdfPreview) window.pdfPreview.notifyUpdate('front-matter');
     if (window.debouncedSaveState) window.debouncedSaveState();
   }
@@ -3510,12 +3510,12 @@ function loadFrontMatter() {
       if (S.uploadedPDFs && S.uploadedPDFs[type]) {
         el.innerHTML = `
           <div class="file-item" style="margin-top:10px">
-            <div class="file-icon" style="background:#fee2e2">📄</div>
+            <div class="file-icon" style="background:#fee2e2">PDF</div>
             <div class="file-info">
               <div class="file-name">Previously Uploaded ${type.toUpperCase()} PDF</div>
               <div class="file-meta">${S.uploadedPDFs[type].length} Page(s)</div>
             </div>
-            <span class="badge badge-green">✓ Ready</span>
+            <span class="badge badge-green">OK Ready</span>
           </div>`;
       } else {
         el.innerHTML = '';
@@ -3824,7 +3824,7 @@ function renderPlates() {
       fileInfoHTML = `
         <div class="file-item" style="margin-top:10px; background:var(--off); border:1px solid var(--border); max-width:480px; display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:var(--r-sm);">
           <div style="display:flex; align-items:center; gap:6px;">
-            <div class="file-icon" style="background:var(--teal-lt); color:var(--teal); padding:6px; border-radius:var(--r-xs); font-size:14px;">📄</div>
+            <div class="file-icon" style="background:var(--teal-lt); color:var(--teal); padding:6px; border-radius:var(--r-xs); font-size:14px;">PDF</div>
             <div style="line-height:1.2;">
               <div style="font-size:11.5px; font-weight:600; color:var(--text);">${p.fileName}</div>
               <div style="font-size:9.5px; color:var(--text-faint);">${p.fileSize || ''} · ${p.pages ? p.pages.length : 0} Page(s)</div>
@@ -3866,7 +3866,7 @@ function renderPlates() {
 function addPlate() {
   S.plates.push({
     id: Date.now(),
-    name: 'NEW PLATE — ENTER TITLE',
+    name: 'NEW PLATE - ENTER TITLE',
     summary: 'Enter plate description here...',
     fileName: null,
     fileSize: null,
@@ -3904,7 +3904,7 @@ function handlePlateUpload(e, id) {
       renderPdfToImages(f, (err, imgs) => {
         if (err) {
           console.error(err);
-          toast('⚠️ PDF render failed, falling back to basic preview', 'error');
+          toast('Warning: PDF render failed, falling back to basic preview', 'error');
           const url = URL.createObjectURL(f);
           p.pages = [url];
           p.fileSize = sizeStr;
@@ -3915,7 +3915,7 @@ function handlePlateUpload(e, id) {
         }
         p.pages = imgs;
         p.fileSize = sizeStr;
-        toast(`📄 ${f.name} processed and loaded!`, 'success');
+        toast(`PDF ${f.name} processed and loaded!`, 'success');
         renderPlates();
         if (window.pdfPreview) window.pdfPreview.notifyUpdate('plates');
         if (window.debouncedSaveState) window.debouncedSaveState();
@@ -3934,14 +3934,14 @@ function handlePlateUpload(e, id) {
       p.pages = [evt.target.result];
       p.fileName = f.name;
       p.fileSize = sizeStr;
-      toast(`🖼️ ${f.name} uploaded successfully!`, 'success');
+      toast(`Image ${f.name} uploaded successfully!`, 'success');
       renderPlates();
       if (window.pdfPreview) window.pdfPreview.notifyUpdate('plates');
       if (window.debouncedSaveState) window.debouncedSaveState();
     };
     reader.readAsDataURL(f);
   } else {
-    toast('❌ Unsupported file format. Please upload a PDF or an Image.', 'error');
+    toast('Error: Unsupported file format. Please upload a PDF or an Image.', 'error');
   }
 }
 function deletePlateFile(id) {
@@ -3966,7 +3966,7 @@ window.movePlate = movePlate;
 
 /* js/graphs.js */
 /* ═══════════════════════════════════════════════════════════
-   GRAPHS — CROSS SECTION
+   GRAPHS - CROSS SECTION
    ═══════════════════════════════════════════════════════════ */
 function isDarkMode() {
   return document.documentElement.classList.contains('dark');
@@ -4162,7 +4162,7 @@ function buildGraphHTML(g) {
           <div class="tbl-wrap" style="margin-top:10px;max-height:150px;overflow-y:auto">
             <table class="tbl" style="font-size:11px">
               <thead><tr><th>Dist</th><th>Post</th><th>Thick</th></tr></thead>
-              <tbody id="tbl-tbody-${g.id}">${o.dist.map((d, i) => `<tr><td>${d}</td><td>${o.post[i] ?? '—'}</td><td>${(o.thickPost[i] ?? 0).toFixed(2)}</td></tr>`).join('')}</tbody>
+              <tbody id="tbl-tbody-${g.id}">${o.dist.map((d, i) => `<tr><td>${d}</td><td>${o.post[i] ?? '-'}</td><td>${(o.thickPost[i] ?? 0).toFixed(2)}</td></tr>`).join('')}</tbody>
             </table>
           </div>
         </div>
@@ -4330,7 +4330,7 @@ function updateG(id, key, val) {
       if (elResultFormula) elResultFormula.innerHTML = `= ${fmtN(o.pArea, 2)} Ha × 10000 × ${o.activeCalcThick.toFixed(2)}m × ${g.bulk} × ${g.pct}%`;
       const elTbody = document.getElementById(`tbl-tbody-${id}`);
       if (elTbody) {
-        elTbody.innerHTML = o.dist.map((d, i) => `<tr><td>${d}</td><td>${o.post[i] ?? '—'}</td><td>${(o.thickPost[i] ?? 0).toFixed(2)}</td></tr>`).join('');
+        elTbody.innerHTML = o.dist.map((d, i) => `<tr><td>${d}</td><td>${o.post[i] ?? '-'}</td><td>${(o.thickPost[i] ?? 0).toFixed(2)}</td></tr>`).join('');
       }
       drawGraph(g);
     }, 400);
@@ -4389,7 +4389,7 @@ function buildPdfChartHelper(g, o, type, canvasEl) {
   const L1_red_color = '#de3b3b';
   const L1_thal_color = '#3b8bba';
   /* Layout 2 colour scheme (Excel / clean report style) */
-  const L2_elev_color = '#1f77b4';    // blue — matches clean report scheme
+  const L2_elev_color = '#1f77b4';    // blue - matches clean report scheme
   const L2_red_color = '#ff7f0e';    // orange
   const L2_thal_color = '#7f7f7f';    // grey
   const elevColor = isLayout2 ? L2_elev_color : L1_elev_color;
@@ -4868,7 +4868,7 @@ function downloadAnxTemplate(n) {
     csvContent = "Owner Name,Patta No.,Area (Ha),District,Tehsil,Village,Remarks\n";
     filename = "Annexure_VII_Patta_Lands_Template.csv";
   } else {
-    toast(`⬇ Annexure ${toRoman(n)} Excel template downloaded`,'success');
+    toast(`Download Annexure ${toRoman(n)} Excel template downloaded`,'success');
     return;
   }
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -4880,7 +4880,7 @@ function downloadAnxTemplate(n) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  toast(`⬇ Annexure ${toRoman(n)} Excel template downloaded`,'success');
+  toast(`Download Annexure ${toRoman(n)} Excel template downloaded`,'success');
 }
 window.addEventListener('DOMContentLoaded', () => {
   const originalShowView = window.showView;
@@ -4944,7 +4944,7 @@ function handleAnxUpload(e,n) {
       toast(`✅ Annexure ${toRoman(n)} uploaded and ${updated} table(s) updated`,'success');
     } catch (err) {
       console.error(err);
-      toast(`⚠️ Upload failed: ${err.message}`,'error');
+      toast(`Warning: Upload failed: ${err.message}`,'error');
     }
   };
   reader.readAsArrayBuffer(file);
@@ -5055,7 +5055,7 @@ function handleTableUpload(e) {
       const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
       if (populateTableFromSheet(tableId, rows)) toast('✅ Table updated from Excel','success');
       else toast('No data found in sheet','warn');
-    } catch (err) { console.error(err); toast('⚠️ Upload failed','error'); }
+    } catch (err) { console.error(err); toast('Warning: Upload failed','error'); }
   };
   reader.readAsArrayBuffer(f);
   e.target.value = '';
@@ -5068,7 +5068,7 @@ function exportAnxPDF(n) {
   } else if (n === 7 && typeof exportAnx7PDF === 'function') {
     exportAnx7PDF();
   } else {
-    toast(`📄 Annexure ${typeof n==='number'?toRoman(n):n} PDF exported`,'success');
+    toast(`PDF Annexure ${typeof n==='number'?toRoman(n):n} PDF exported`,'success');
   }
 }
 function toRoman(n) { return ['I','II','III','IV','V','VI','VII'][n-1]||n; }
@@ -5118,8 +5118,8 @@ function updateDemandTotals() {
     const el=document.getElementById('dt-'+col); if(el) el.textContent=fmtN(total,0);
   }
 }
-function exportDemandExcel() { toast('⬇ Demand table Excel downloaded','success'); }
-function exportDemandPDF() { toast('📄 Demand table PDF exported','success'); }
+function exportDemandExcel() { toast('Download Demand table Excel downloaded','success'); }
+function exportDemandPDF() { toast('PDF Demand table PDF exported','success'); }
 /* ══════════════════════════════════════
    SUMMARY TABLE
 ══════════════════════════════════════ */
@@ -5160,7 +5160,7 @@ function updateSummaryTotals() {
     const el=document.getElementById(id); if(el) el.textContent=fmtN(total,2);
   });
 }
-function exportSummaryPDF() { toast('📄 Summary table PDF exported','success'); }
+function exportSummaryPDF() { toast('PDF Summary table PDF exported','success'); }
 /* ══════════════════════════════════════
    AUCTION TABLE
 ══════════════════════════════════════ */
@@ -5174,7 +5174,7 @@ function initAuctionTable() {
     <td><select ${isReadOnly ? 'disabled' : ''}><option>PMS</option><option>CMS</option><option>S</option><option>C</option><option>RSM</option></select></td>
     <td ${cEd}>01-Apr-2023</td><td ${cEd}>15-Apr-2023</td>
     <td ${cEd}>285000</td><td ${cEd}>142500</td><td ${cEd}>142500</td>
-    <td ${cEd}>Active</td><td ${cEd}>—</td><td ${cEd}>—</td>
+    <td ${cEd}>Active</td><td ${cEd}>-</td><td ${cEd}>-</td>
     <td ${cEd}>Running as per schedule</td>
     <td style="${isReadOnly ? 'display:none;' : ''}"><button class="btn btn-xs btn-danger" onclick="delRow(this)" style="display:inline-flex;align-items:center;justify-content:center;padding:4px;"><i data-lucide="trash-2" style="width:12px;height:12px;"></i></button></td>
   </tr>`;
@@ -5188,22 +5188,22 @@ function addAuctionRow() {
     <td contenteditable>${n}</td>
     <td contenteditable>Site Name ${n}</td>
     <td><select><option>PMS</option><option>CMS</option><option>S</option><option>C</option><option>RSM</option></select></td>
-    <td contenteditable>—</td><td contenteditable>—</td>
+    <td contenteditable>-</td><td contenteditable>-</td>
     <td contenteditable>0</td><td contenteditable>0</td><td contenteditable>0</td>
-    <td contenteditable>Pending</td><td contenteditable>—</td><td contenteditable>—</td>
-    <td contenteditable>—</td>
+    <td contenteditable>Pending</td><td contenteditable>-</td><td contenteditable>-</td>
+    <td contenteditable>-</td>
     <td><button class="btn btn-xs btn-danger" onclick="delRow(this)" style="display:inline-flex;align-items:center;justify-content:center;padding:4px;"><i data-lucide="trash-2" style="width:12px;height:12px;"></i></button></td>
   </tr>`);
   if (window.initLucide) window.initLucide();
 }
-function exportAuctionPDF() { toast('📄 Auctioned sites PDF exported','success'); }
+function exportAuctionPDF() { toast('PDF Auctioned sites PDF exported','success'); }
 
 ;
 
 /* js/anx1.js */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANNEXURE I â€” SAND SOURCES
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══════════════════════════════════════
+   ANNEXURE I - SAND SOURCES
+   ══════════════════════════════════════ */
 function downloadSectionTemplate(sectionType) {
   let csvContent = "";
   let filename = "";
@@ -5716,9 +5716,9 @@ document.addEventListener('change', (e) => {
 ;
 
 /* js/anx2.js */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANNEXURE II â€” MINING LEASES
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══════════════════════════════════════
+   ANNEXURE II - MINING LEASES
+   ══════════════════════════════════════ */
 function downloadSectionTemplateAnx2(sectionType) {
   let csvContent = "";
   let filename = "";
@@ -6375,15 +6375,15 @@ window.exportAnx2PDF = exportAnx2PDF;
 ;
 
 /* js/anx3.js */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANNEXURE III â€” CLUSTERS & CONTIGUOUS CLUSTERS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-/* â”€â”€â”€ Base64 Excel templates â”€â”€â”€ */
+/* ══════════════════════════════════════
+   ANNEXURE III - CLUSTERS & CONTIGUOUS CLUSTERS
+   ══════════════════════════════════════ */
+/* ─── Base64 Excel templates ─── */
 const CLUSTER_B64    = "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... (B64 truncated for clarity but matches original template file data)";
 const CONTIGUOUS_B64 = "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 (B64 truncated for clarity but matches original template file data)";
 const ACTUAL_CLUSTER_B64 = "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";
 const ACTUAL_CONTIGUOUS_B64 = "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";
-/* â”€â”€â”€ Helpers â”€â”€â”€ */
+/* ─── Helpers ─── */
 function b64toBlob(b64, mime) {
   const bin = atob(b64);
   const arr = new Uint8Array(bin.length);
@@ -6397,7 +6397,7 @@ function dlBlob(blob, fname) {
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 }
-/* â”€â”€â”€ Download templates â”€â”€â”€ */
+/* ─── Download templates ─── */
 function dlTemplate(type) {
   if (type === 'cluster') {
     dlBlob(b64toBlob(ACTUAL_CLUSTER_B64, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'), 'Cluster_Details_Template.xlsx');
@@ -6405,9 +6405,9 @@ function dlTemplate(type) {
     dlBlob(b64toBlob(ACTUAL_CONTIGUOUS_B64, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'), 'Contiguous_Clusters_Template.xlsx');
   }
 }
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════
    CLUSTER TABLE
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════ */
 let clusterData = [
   { river:'Sutlej', cluster:'1', lease:'Jalandhar Sutlej 1,2', location:'Riverbed', village:'Kadiana', area:25.27, excav:1074334.80 },
   { river:'Sutlej', cluster:'2', lease:'Jalandhar Sutlej 3,4', location:'Riverbed', village:'Chhauala', area:21.43, excav:1027755.96 },
@@ -6463,7 +6463,7 @@ function delCluster(i) {
   clusterData.splice(i, 1);
   renderCluster();
 }
-/* â”€â”€â”€ Export Cluster XLSX â”€â”€â”€ */
+/* ─── Export Cluster XLSX ─── */
 function exportClusterXlsx() {
   const ws_data = [
     ['River Name','Cluster No.','Lease No','Location (Riverbed/Patta Land)','Village','Area (in Ha.)','Total Excavation (MT)','Total Mineral Excavation (MT) @60%']
@@ -6481,9 +6481,9 @@ function exportClusterXlsx() {
   XLSX.utils.book_append_sheet(wb, ws, 'Cluster_Details');
   XLSX.writeFile(wb, 'Cluster_Details_Export.xlsx');
 }
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════
    CONTIGUOUS TABLE
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════ */
 let contData = [
   { river:'Sutlej', ccNo:'1', clusterNo:'10,11', leases:10, location:'Riverbed', distance:'0.55km', village:'Minwal, Mau Sahib', area:71.01, mineral:1978752.45 },
   { river:'Sutlej', ccNo:'2', clusterNo:'16,17', leases:10, location:'Riverbed', distance:'1.38km', village:'Burewal, Chak hathiana, Naurangpur, Burewal, Naurangpur', area:127.91, mineral:2664913.66 }
@@ -6540,7 +6540,7 @@ function delCont(i) {
   contData.splice(i, 1);
   renderContigous();
 }
-/* â”€â”€â”€ Export Contiguous XLSX â”€â”€â”€ */
+/* ─── Export Contiguous XLSX ─── */
 function exportContXlsx() {
   const ws_data = [
     ['River Name','Contiguous Cluster No.','Cluster No','Number of leases in the cluster','Location (Riverbed / Patta Land)','Distance between clusters','Village','Area Of Cluster (Ha)','Total Mineral Excavation (MT) @60%']
@@ -6608,9 +6608,9 @@ function applyRbacAnx3Upload(tableId, rows, appendRow, syncData, beforeFullRepla
   syncData();
   return result !== false;
 }
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   UPLOAD EXCEL â†’ PARSE â†’ FILL TABLE
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════════
+   UPLOAD EXCEL -> PARSE -> FILL TABLE
+   ═══════════════════════════════════════════════ */
 function uploadExcel(event, type) {
   const file = event.target.files[0];
   if (!file) return;
@@ -6696,7 +6696,7 @@ function uploadExcel(event, type) {
         }));
         if (clusterData.length === 0) { alert('No valid rows found.'); return; }
         renderCluster();
-        alert(`âœ… Loaded ${clusterData.length} cluster row(s) from Excel.`);
+        alert(`✅ Loaded ${clusterData.length} cluster row(s) from Excel.`);
       } else {
         contData = dataRows.map(r => ({
           river:    String(r[0]||''),
@@ -6711,7 +6711,7 @@ function uploadExcel(event, type) {
         }));
         if (contData.length === 0) { alert('No valid rows found.'); return; }
         renderContigous();
-        alert(`âœ… Loaded ${contData.length} contiguous cluster row(s) from Excel.`);
+        alert(`✅ Loaded ${contData.length} contiguous cluster row(s) from Excel.`);
       }
     } catch(err) {
       alert('Error reading Excel file: ' + err.message);
@@ -6720,9 +6720,9 @@ function uploadExcel(event, type) {
   };
   reader.readAsBinaryString(file);
 }
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════
    LEGACY FUNCTIONS (FOR BACKWARD COMPATIBILITY)
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ══════════════════════════════════════ */
 function addAnx3Row(tblId='anx3-clusters') {
   const tbody=document.querySelector('#'+tblId+' tbody');
   if (!tbody) return;
@@ -6761,9 +6761,9 @@ function calcClusterRow(el) {
 }
 window.renderCluster = renderCluster;
 window.renderContiguous = renderContigous;
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════
    PDF UPLOAD & MANAGEMENT (ANNEXURE III)
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ══════════════════════════════════════ */
 function renderPdfUploadUI() {
   const nameEl = document.getElementById('anx3-uploaded-filename');
   const dlBtn = document.getElementById('anx3-download-btn');
@@ -7027,7 +7027,7 @@ function exportAnx3PDF(btn, isLivePreview = false) {
     toast('PDF downloaded successfully!', 'success');
   }
 }
-/* â”€â”€â”€ DOMContentLoaded initialization â”€â”€â”€ */
+/* ─── DOMContentLoaded initialization ─── */
 window.addEventListener('DOMContentLoaded', () => {
   renderCluster();
   renderContigous();
@@ -7054,11 +7054,11 @@ window.exportAnx3PDF = exportAnx3PDF;
 ;
 
 /* js/anx4.js */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANNEXURE IV â€” TRANSPORTATION ROUTES
+/* ══════════════════════════════════════
+   ANNEXURE IV - TRANSPORTATION ROUTES
    Supports multiple dynamic tables, context-aware Excel operations,
    and portrait PDF generation.
- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+ ══════════════════════════════════════ */
 const defaultRoutes = [
   [1, "Jalandhar Sutlej -\n1 Vill- Kadiana,\nBlock- Phillaur", "A-A'", 43, "NA", 0.73, "Unpaved", "Unpaved", "Lease Owner", "Route Map\nattached"],
   [2, "Jalandhar Sutlej -\n2 Vill- Kadiana,\nBlock- Phillaur", "B-B'", 315, "NA", 0.48, "Unpaved", "Unpaved", "Lease Owner", "Route Map\nattached"],
@@ -7349,7 +7349,7 @@ function downloadRouteTemplate(btn) {
   XLSX.utils.book_append_sheet(wb, ws, "Transportation_Routes");
   const safeFilename = title.replace(/[^a-z0-9]/gi, '_') + "_Template.xlsx";
   XLSX.writeFile(wb, safeFilename);
-  toast(`${title} Excel downloaded âœ“`, "success");
+  toast(`${title} Excel downloaded OK`, "success");
 }
 function downloadClusterTemplate(btn) {
   const card = btn ? btn.closest('.card') : document.querySelector('.table-block-card[data-type="cluster"]');
@@ -7381,7 +7381,7 @@ function downloadClusterTemplate(btn) {
   XLSX.utils.book_append_sheet(wb, ws, "Cluster_Routes");
   const safeFilename = title.replace(/[^a-z0-9]/gi, '_') + "_Template.xlsx";
   XLSX.writeFile(wb, safeFilename);
-  toast(`${title} Excel downloaded âœ“`, "success");
+  toast(`${title} Excel downloaded OK`, "success");
 }
 function uploadRoutes(event, btn) {
   const file = event.target.files[0];
@@ -7409,7 +7409,7 @@ function uploadRoutes(event, btn) {
         tbody.innerHTML = uploadRows.map(renderRouteRow).join("");
       }
       if (window.initLucide) window.initLucide();
-      toast(`Loaded ${dataRows.length} route(s) into ${title} âœ“`, "success");
+      toast(`Loaded ${dataRows.length} route(s) into ${title} OK`, "success");
     } catch (err) { toast("Error reading file: " + err.message, "error"); }
   };
   reader.readAsBinaryString(file);
@@ -7441,7 +7441,7 @@ function uploadClusters(event, btn) {
         tbody.innerHTML = uploadRows.map(renderClusterRow).join("");
       }
       if (window.initLucide) window.initLucide();
-      toast(`Loaded ${dataRows.length} cluster route(s) into ${title} âœ“`, "success");
+      toast(`Loaded ${dataRows.length} cluster route(s) into ${title} OK`, "success");
     } catch (err) { toast("Error reading file: " + err.message, "error"); }
   };
   reader.readAsBinaryString(file);
@@ -7835,9 +7835,9 @@ window.exportAnx4PDF = exportAnx4PDF;
 ;
 
 /* js/anx5.js */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANNEXURE V â€” SAND MINING REPORT
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══════════════════════════════════════
+   ANNEXURE V - SAND MINING REPORT
+   ══════════════════════════════════════ */
 window.S = window.S || { activeProject: { id: 'demo_proj', anx5PdfName: null }, projects: [] };
 window.toast = window.toast || function (msg, type) { alert('[' + (type || 'INFO').toUpperCase() + '] ' + msg); };
 window.initLucide = window.initLucide || function () { if (window.lucide) lucide.createIcons(); };
@@ -9975,10 +9975,10 @@ function registerSimpleAnnexure(letter) {
       const fileInfoHTML = p.fileName ? `
         <div class="file-item" style="margin-top:10px; background:var(--off); border:1px solid var(--border); max-width:480px; display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:var(--r-sm);">
           <div style="display:flex; align-items:center; gap:6px;">
-            <div class="file-icon" style="background:var(--teal-lt); color:var(--teal); padding:6px; border-radius:var(--r-xs); font-size:14px;">ðŸ“„</div>
+            <div class="file-icon" style="background:var(--teal-lt); color:var(--teal); padding:6px; border-radius:var(--r-xs); font-size:14px;">PDF</div>
             <div style="line-height:1.2;">
               <div style="font-size:11.5px; font-weight:600; color:var(--text);">${p.fileName}</div>
-              <div style="font-size:9.5px; color:var(--text-faint);">${p.fileSize || ''} Â· ${p.pages ? p.pages.length : 0} Page(s)</div>
+              <div style="font-size:9.5px; color:var(--text-faint);">${p.fileSize || ''} · ${p.pages ? p.pages.length : 0} Page(s)</div>
             </div>
           </div>
           <div style="display:flex; gap:6px;">
@@ -9990,7 +9990,7 @@ function registerSimpleAnnexure(letter) {
         </div>` : `
         <div>
           <label class="btn btn-xs btn-outline" style="cursor:pointer;">
-            ðŸ“Ž Upload PDF/Image <input type="file" accept=".pdf,image/*" hidden onchange="handleAnnexure${letter}Upload(event,${p.id})">
+            Upload PDF/Image <input type="file" accept=".pdf,image/*" hidden onchange="handleAnnexure${letter}Upload(event,${p.id})">
           </label>
         </div>`;
       return `
@@ -10004,9 +10004,9 @@ function registerSimpleAnnexure(letter) {
         </div>
       </div>
       <div style="display:flex; gap:5px; flex-shrink:0">
-        ${i > 0 ? `<button class="btn btn-xs btn-outline" onclick="moveAnnexure${letter}(${i},-1)">â†‘</button>` : ''}
-        ${i < S[stateKey].length - 1 ? `<button class="btn btn-xs btn-outline" onclick="moveAnnexure${letter}(${i},1)">â†“</button>` : ''}
-        <button class="btn btn-xs btn-danger" onclick="deleteAnnexure${letter}Req(${p.id})">âœ•</button>
+        ${i > 0 ? `<button class="btn btn-xs btn-outline" onclick="moveAnnexure${letter}(${i},-1)">Up</button>` : ''}
+        ${i < S[stateKey].length - 1 ? `<button class="btn btn-xs btn-outline" onclick="moveAnnexure${letter}(${i},1)">Down</button>` : ''}
+        <button class="btn btn-xs btn-danger" onclick="deleteAnnexure${letter}Req(${p.id})">Delete</button>
       </div>
     </div>`;
     }).join('');
@@ -10014,7 +10014,7 @@ function registerSimpleAnnexure(letter) {
   };
   window[`addAnnexure${letter}`] = function() {
     ensureDefaultRow();
-    S[stateKey].push({ id: Date.now(), name: 'NEW ENTRY â€” ENTER TITLE', summary: 'Enter description here...', fileName: null, fileSize: null, pages: null });
+    S[stateKey].push({ id: Date.now(), name: 'NEW ENTRY - ENTER TITLE', summary: 'Enter description here...', fileName: null, fileSize: null, pages: null });
     window[renderName]();
     if (window.debouncedSaveState) window.debouncedSaveState();
   };
@@ -10049,7 +10049,7 @@ function registerSimpleAnnexure(letter) {
         renderPdfToImages(f, (err, imgs) => {
           if (err) {
             console.error(err);
-            toast('âš ï¸ PDF render failed, falling back to basic preview', 'error');
+            toast('PDF render failed, falling back to basic preview', 'error');
             p.pages = [URL.createObjectURL(f)];
             p.fileSize = sizeStr;
             finish();
@@ -10057,7 +10057,7 @@ function registerSimpleAnnexure(letter) {
           }
           p.pages = imgs;
           p.fileSize = sizeStr;
-          toast(`ðŸ“„ ${f.name} processed and loaded!`, 'success');
+          toast(`${f.name} processed and loaded!`, 'success');
           finish();
         });
       } else {
@@ -10071,12 +10071,12 @@ function registerSimpleAnnexure(letter) {
         p.pages = [evt.target.result];
         p.fileName = f.name;
         p.fileSize = sizeStr;
-        toast(`ðŸ–¼ï¸ ${f.name} uploaded successfully!`, 'success');
+        toast(`${f.name} uploaded successfully!`, 'success');
         finish();
       };
       reader.readAsDataURL(f);
     } else {
-      toast('âŒ Unsupported file format. Please upload a PDF or an Image.', 'error');
+      toast('Unsupported file format. Please upload a PDF or an image.', 'error');
     }
   };
   window[`deleteAnnexure${letter}File`] = function(id) {
@@ -11391,7 +11391,7 @@ function renderSignatures() {
         <i data-lucide="${s.signed?'check':canSign?'clock':'lock'}" style="width:16px;height:16px;"></i>
       </div>
       <div class="sig-info">
-        <div class="sig-role">Authority ${s.order} — ${s.role}</div>
+        <div class="sig-role">Authority ${s.order} - ${s.role}</div>
         <div class="sig-name">${s.name}</div>
         <div class="sig-dept">${s.dept}</div>
         ${s.signed?`<div style="font-size:10.5px;color:var(--green);margin-top:3px">Signed: ${s.signedAt} via ${s.method}</div>
@@ -11412,7 +11412,7 @@ function renderSignatures() {
 }
 function openSign(id) {
   const s=S.signatures.find(x=>x.id===id);
-  document.getElementById('sign-modal-title').textContent=`Sign — ${s.role}`;
+  document.getElementById('sign-modal-title').textContent=`Sign - ${s.role}`;
   document.getElementById('sign-modal-content').innerHTML=`
     <div style="background:var(--off);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin-bottom:14px">
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin-bottom:4px">Signing as</div>
@@ -11517,10 +11517,10 @@ function renderFinalChecklist() {
     { name:'Chapters (10)', sub:'All 10 EMGSM 2020 chapters', ok:S.chapters.length>=10 },
     { name:'Plates', sub:'Maps, graphs, and site images', ok:S.plates.length>0 },
     { name:'Cross Section Graphs', sub:'Elevation profiles generated', ok:S.graphs.length>0 },
-    { name:'Annexure I — Sources', sub:'Rivers, de-siltation, patta lands, M-sand', ok:true },
-    { name:'Annexure II — Mining Leases', sub:'All potential leases listed', ok:true },
-    { name:'Annexure III — Clusters', sub:'Cluster and contiguous cluster details', ok:true },
-    { name:'Annexure IV — Transportation', sub:'Route details for all leases', ok:true },
+    { name:'Annexure I - Sources', sub:'Rivers, de-siltation, patta lands, M-sand', ok:true },
+    { name:'Annexure II - Mining Leases', sub:'All potential leases listed', ok:true },
+    { name:'Annexure III - Clusters', sub:'Cluster and contiguous cluster details', ok:true },
+    { name:'Annexure IV - Transportation', sub:'Route details for all leases', ok:true },
     { name:'Demand & Summary Tables', sub:'District-wise projections', ok:true },
     { name:`E-Signatures (${sigs}/5)`, sub:'Sequential authority signing', ok:sigs===5 }
   ];
@@ -11552,7 +11552,7 @@ function renderWorkflowChecklist() {
     {n:'All 10 Chapters',ok:S.chapters.length>=10,note:`${S.chapters.length}/10 chapters added`},
     {n:'Plate Section',ok:S.plates.length>0,note:`${S.plates.length} plates setup`},
     {n:'Cross Section Graphs',ok:S.graphs.length>0,note:`${S.graphs.length} sections generated`},
-    {n:'Annexures I–IV',ok:true,note:'All 4 annexures filled'},
+    {n:'Annexures I-IV',ok:true,note:'All 4 annexures filled'},
     {n:'Data Tables',ok:true,note:'Demand, auction, summary tables'},
     {n:'E-Signatures',ok:false,note:`${S.signatures.filter(s=>s.signed).length}/5 signed`}
   ];
@@ -11586,7 +11586,7 @@ function generateFinalPDF() {
   const addPageHeader=(section)=>{
     doc.setFillColor(...navyArr); doc.rect(0,0,W,14,'F');
     doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(255,255,255);
-    doc.text('DISTRICT SURVEY REPORT — GOVERNMENT OF PUNJAB · EMGSM 2020',W/2,8,{align:'center'});
+    doc.text('DISTRICT SURVEY REPORT - GOVERNMENT OF PUNJAB · EMGSM 2020',W/2,8,{align:'center'});
     doc.text(section,W-pad,8,{align:'right'});
     doc.setDrawColor(224,123,0); doc.setLineWidth(0.8); doc.line(pad,15,W-pad,15);
   };
@@ -11666,8 +11666,8 @@ function generateFinalPDF() {
         doc.addPage();
         doc.setFillColor(...navyArr); doc.rect(0, 0, W, 14, 'F');
         doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(255, 255, 255);
-        doc.text(`DISTRICT SURVEY REPORT — ${dist.toUpperCase()} · EMGSM 2020`, W/2, 8, {align:'center'});
-        doc.text(`CHAPTER ${i+1} — UPLOADED CONTENT (Pg ${pageIdx + 1}/${chapterPages.length})`, W-pad, 8, {align:'right'});
+        doc.text(`DISTRICT SURVEY REPORT - ${dist.toUpperCase()} · EMGSM 2020`, W/2, 8, {align:'center'});
+        doc.text(`CHAPTER ${i+1} - UPLOADED CONTENT (Pg ${pageIdx + 1}/${chapterPages.length})`, W-pad, 8, {align:'right'});
         doc.setDrawColor(224,123,0); doc.setLineWidth(0.8); doc.line(pad,15,W-pad,15);
         doc.setDrawColor(200,200,200); doc.setLineWidth(0.5);
         doc.rect(pad, 20, W - 2*pad, 260); // Frame
@@ -11719,7 +11719,7 @@ function generateFinalPDF() {
   if (S.plates.length) {
     doc.addPage(); addPageHeader('PLATE SECTION'); y=25;
     doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(...navyArr);
-    doc.text('PLATE SECTION — MAPS & SITE PHOTOGRAPHS', W/2, y, {align:'center'}); y+=10;
+    doc.text('PLATE SECTION - MAPS & SITE PHOTOGRAPHS', W/2, y, {align:'center'}); y+=10;
     S.plates.forEach((p,i)=>{
       if (y>250){doc.addPage();y=20;addPageHeader('PLATES');}
       doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(60,60,80);
@@ -11747,30 +11747,30 @@ function generateFinalPDF() {
     });
   }
   const allTablesData = [
-    { title: 'ANNEXURE I(a) — RIVERS', id: '#anx1-rivers' },
-    { title: 'ANNEXURE I(b) — DE-SILTATION', id: '#anx1-desilt' },
-    { title: 'ANNEXURE I(c) — PATTA LANDS', id: '#anx1-patta' },
-    { title: 'ANNEXURE I(d) — M-SAND PLANTS', id: '#anx1-msand' },
-    { title: 'ANNEXURE II(a) — MINING LEASES', id: '#anx2-leases' },
-    { title: 'ANNEXURE II(b) — PATTA LANDS', id: '#anx2-patta' },
-    { title: 'ANNEXURE II(c) — DE-SILTATION', id: '#anx2-desilt' },
-    { title: 'ANNEXURE II(d) — M-SAND PLANTS', id: '#anx2-msand' },
-    { title: 'ANNEXURE III(a) — CLUSTERS', id: '#anx3-clusters' },
-    { title: 'ANNEXURE III(b) — CONTIGUOUS CLUSTERS', id: '#anx3-contiguous' },
-    { title: 'ANNEXURE IV(a) — LEASE ROUTES', id: '#anx4-routes' },
-    { title: 'ANNEXURE IV(b) — CLUSTER ROUTES', id: '#anx4-cluster-routes' },
-    { title: 'ANNEXURE V — BENCH MARK & CORS', id: '#anx5-benchmarks' },
-    { title: 'ANNEXURE VI — FINAL CLUSTERS', id: '#anx6-final-clusters' },
-    { title: 'ANNEXURE VII — FINAL PATTA LANDS', id: '#anx7-patta-final' },
-    { title: 'ADDITIONAL — SAND GHATS COORDS', id: '#anx-coords-tbl' },
-    { title: 'ADDITIONAL — BENCH MARKS', id: '#anx-benchmark-tbl' },
-    { title: 'ADDITIONAL — CORS STATIONS', id: '#anx-cors-tbl' },
-    { title: 'ADDITIONAL — FINAL CLUSTERS', id: '#anx-final-clusters-tbl' },
-    { title: 'ADDITIONAL — FINAL PATTA LANDS', id: '#anx-patta-final-tbl' },
-    { title: 'ADDITIONAL — FINAL DE-SILTATION', id: '#anx-desilt-final-tbl' },
-    { title: 'DATA TABLE — PROJECTED DEMAND', id: '#demand-tbl' },
-    { title: 'DATA TABLE — AUCTIONED SITES', id: '#auction-tbl' },
-    { title: 'DATA TABLE — SOURCE SUMMARY', id: '#summary-tbl' }
+    { title: 'ANNEXURE I(a) - RIVERS', id: '#anx1-rivers' },
+    { title: 'ANNEXURE I(b) - DE-SILTATION', id: '#anx1-desilt' },
+    { title: 'ANNEXURE I(c) - PATTA LANDS', id: '#anx1-patta' },
+    { title: 'ANNEXURE I(d) - M-SAND PLANTS', id: '#anx1-msand' },
+    { title: 'ANNEXURE II(a) - MINING LEASES', id: '#anx2-leases' },
+    { title: 'ANNEXURE II(b) - PATTA LANDS', id: '#anx2-patta' },
+    { title: 'ANNEXURE II(c) - DE-SILTATION', id: '#anx2-desilt' },
+    { title: 'ANNEXURE II(d) - M-SAND PLANTS', id: '#anx2-msand' },
+    { title: 'ANNEXURE III(a) - CLUSTERS', id: '#anx3-clusters' },
+    { title: 'ANNEXURE III(b) - CONTIGUOUS CLUSTERS', id: '#anx3-contiguous' },
+    { title: 'ANNEXURE IV(a) - LEASE ROUTES', id: '#anx4-routes' },
+    { title: 'ANNEXURE IV(b) - CLUSTER ROUTES', id: '#anx4-cluster-routes' },
+    { title: 'ANNEXURE V - BENCH MARK & CORS', id: '#anx5-benchmarks' },
+    { title: 'ANNEXURE VI - FINAL CLUSTERS', id: '#anx6-final-clusters' },
+    { title: 'ANNEXURE VII - FINAL PATTA LANDS', id: '#anx7-patta-final' },
+    { title: 'ADDITIONAL - SAND GHATS COORDS', id: '#anx-coords-tbl' },
+    { title: 'ADDITIONAL - BENCH MARKS', id: '#anx-benchmark-tbl' },
+    { title: 'ADDITIONAL - CORS STATIONS', id: '#anx-cors-tbl' },
+    { title: 'ADDITIONAL - FINAL CLUSTERS', id: '#anx-final-clusters-tbl' },
+    { title: 'ADDITIONAL - FINAL PATTA LANDS', id: '#anx-patta-final-tbl' },
+    { title: 'ADDITIONAL - FINAL DE-SILTATION', id: '#anx-desilt-final-tbl' },
+    { title: 'DATA TABLE - PROJECTED DEMAND', id: '#demand-tbl' },
+    { title: 'DATA TABLE - AUCTIONED SITES', id: '#auction-tbl' },
+    { title: 'DATA TABLE - SOURCE SUMMARY', id: '#summary-tbl' }
   ];
   allTablesData.forEach((tblConfig, index) => {
     let tables = [];
@@ -11782,7 +11782,7 @@ function generateFinalPDF() {
     }
     tables.forEach((tableEl, tblIdx) => {
       if (tableEl && tableEl.rows.length > 1) { // ensure it has rows beyond header
-        doc.addPage(); addPageHeader(tblConfig.title.split(' — ')[0]); y=25;
+        doc.addPage(); addPageHeader(tblConfig.title.split(' - ')[0]); y=25;
         doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(...navyArr);
         let title = tblConfig.title;
         if (tblConfig.id === '#anx2-leases' && tables.length > 1) {
@@ -11848,8 +11848,8 @@ function generateFinalPDF() {
           doc.addPage();
           doc.setFillColor(...navyArr); doc.rect(0, 0, W, 14, 'F');
           doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(255, 255, 255);
-          doc.text(`DISTRICT SURVEY REPORT — ${dist.toUpperCase()} · EMGSM 2020`, W/2, 8, {align:'center'});
-          doc.text(`${currentPrefix} — UPLOADED DOCUMENT (Pg ${pageIdx + 1}/${S.uploadedPDFs[uploadKey].length})`, W-pad, 8, {align:'right'});
+          doc.text(`DISTRICT SURVEY REPORT - ${dist.toUpperCase()} · EMGSM 2020`, W/2, 8, {align:'center'});
+          doc.text(`${currentPrefix} - UPLOADED DOCUMENT (Pg ${pageIdx + 1}/${S.uploadedPDFs[uploadKey].length})`, W-pad, 8, {align:'right'});
           doc.setDrawColor(224,123,0); doc.setLineWidth(0.8); doc.line(pad,15,W-pad,15);
           doc.setDrawColor(200,200,200); doc.setLineWidth(0.5);
           doc.rect(pad, 20, W - 2*pad, 260); // Frame
@@ -11869,7 +11869,7 @@ function generateFinalPDF() {
     startY:y, margin:{left:pad,right:pad}, styles:{fontSize:9},
     headStyles:{fillColor:navyArr},
     head:[['#','Role','Officer','Status','Signed At','Method']],
-    body:S.signatures.map(s=>[s.order,s.role,s.name,s.signed?'SIGNED':'PENDING',s.signedAt||'—',s.method||'—'])
+    body:S.signatures.map(s=>[s.order,s.role,s.name,s.signed?'SIGNED':'PENDING',s.signedAt||'-',s.method||'-'])
   });
   if (S.sdlcData && S.sdlcData.projectId === S.activeProject.id && S.sdlcData.verified) {
     doc.addPage();
@@ -11889,7 +11889,7 @@ function generateFinalPDF() {
     y += linesDesc.length * 5 + 8;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.text('Annexure IV — Route Carrying Capacity Verification', pad, y);
+    doc.text('Annexure IV - Route Carrying Capacity Verification', pad, y);
     y += 5;
     doc.autoTable({
       startY: y,
@@ -11903,7 +11903,7 @@ function generateFinalPDF() {
     if (y > 220) { doc.addPage(); addPageHeader('SDLC RECONCILIATION REPORT'); y = 25; }
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.text('Annexure V — Elevation Bench Marks Verification', pad, y);
+    doc.text('Annexure V - Elevation Bench Marks Verification', pad, y);
     y += 5;
     doc.autoTable({
       startY: y,
@@ -11917,7 +11917,7 @@ function generateFinalPDF() {
     if (y > 220) { doc.addPage(); addPageHeader('SDLC RECONCILIATION REPORT'); y = 25; }
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.text('Annexure VI — Quarry Cluster Area Verification', pad, y);
+    doc.text('Annexure VI - Quarry Cluster Area Verification', pad, y);
     y += 5;
     doc.autoTable({
       startY: y,
@@ -11931,7 +11931,7 @@ function generateFinalPDF() {
     if (y > 220) { doc.addPage(); addPageHeader('SDLC RECONCILIATION REPORT'); y = 25; }
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.text('Annexure VII — Transportation Traffic Density Verification', pad, y);
+    doc.text('Annexure VII - Transportation Traffic Density Verification', pad, y);
     y += 5;
     doc.autoTable({
       startY: y,
@@ -12712,9 +12712,9 @@ async function submitForReview(ignoreWarning = false) {
 function renderAuthorityReports() {
   const el=document.getElementById('authority-reports'); if(!el) return;
   const reports=[
-    { id:1, title:'DSR — Jalandhar Sand Mining 2025-26', district:'Jalandhar', by:'Rajinder Kumar, SDO', at:'May 21, 2026 · 11:42 AM', status:'Awaiting Your Signature', done:1, sections:12 },
-    { id:2, title:'DSR — Ludhiana Sand Mining 2025-26', district:'Ludhiana', by:'Priya Sharma, SDO', at:'May 20, 2026 · 3:15 PM', status:'Under Review', done:1, sections:10 },
-    { id:3, title:'DSR — Patiala Sand Mining 2025-26', district:'Patiala', by:'Harjinder Singh, SDO', at:'May 19, 2026 · 9:00 AM', status:'Awaiting Your Signature', done:1, sections:11 }
+    { id:1, title:'DSR - Jalandhar Sand Mining 2025-26', district:'Jalandhar', by:'Rajinder Kumar, SDO', at:'May 21, 2026 · 11:42 AM', status:'Awaiting Your Signature', done:1, sections:12 },
+    { id:2, title:'DSR - Ludhiana Sand Mining 2025-26', district:'Ludhiana', by:'Priya Sharma, SDO', at:'May 20, 2026 · 3:15 PM', status:'Under Review', done:1, sections:10 },
+    { id:3, title:'DSR - Patiala Sand Mining 2025-26', district:'Patiala', by:'Harjinder Singh, SDO', at:'May 19, 2026 · 9:00 AM', status:'Awaiting Your Signature', done:1, sections:11 }
   ];
   el.innerHTML=reports.map(r=>`
     <div class="review-card">
@@ -12729,7 +12729,7 @@ function renderAuthorityReports() {
           <span class="badge badge-teal" style="display:inline-flex;align-items:center;gap:4px;"><i data-lucide="check-circle-2" style="width:12px;height:12px;"></i>${r.done}/5 signed</span>
           <span class="badge badge-navy" style="display:inline-flex;align-items:center;gap:4px;"><i data-lucide="file-text" style="width:12px;height:12px;"></i>${r.sections} sections</span>
           <div style="flex:1"></div>
-          <button class="btn btn-outline btn-sm" onclick="toast('PDF preview opened','info')">👁 Preview</button>
+          <button class="btn btn-outline btn-sm" onclick="toast('PDF preview opened','info')">Preview Preview</button>
           <button class="btn btn-navy btn-sm" onclick="toast('DSR-${r.district}-2025-26.pdf downloading...','info')">Download</button>
           <button class="btn btn-saffron btn-sm" onclick="openAuthoritySign(${r.id},'${r.title}')">Sign Now</button>
         </div>
@@ -13382,7 +13382,7 @@ const pdfPreview = {
         uploaded.forEach((img, idx) => {
           pages.push({
             src: img,
-            label: uploaded.length > 1 ? `${sectionLabel} — Page ${idx + 1}` : sectionLabel
+            label: uploaded.length > 1 ? `${sectionLabel} - Page ${idx + 1}` : sectionLabel
           });
         });
         return;
@@ -13491,7 +13491,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: imgs.length > 1
-              ? `Chapter ${i + 1} — Page ${idx + 1}`
+              ? `Chapter ${i + 1} - Page ${idx + 1}`
               : `Chapter ${i + 1}: ${ch.name}`
           });
         });
@@ -13535,7 +13535,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Plate ${i + 1} — Page ${idx + 1}`
+              ? `Plate ${i + 1} - Page ${idx + 1}`
               : `Plate ${i + 1}: ${p.name}`
           });
         });
@@ -13560,7 +13560,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure B — Page ${idx + 1}`
+              ? `Annexure B - Page ${idx + 1}`
               : `Annexure B: ${p.name}`
           });
         });
@@ -13579,7 +13579,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure C — Page ${idx + 1}`
+              ? `Annexure C - Page ${idx + 1}`
               : `Annexure C: ${p.name}`
           });
         });
@@ -13598,7 +13598,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure D — Page ${idx + 1}`
+              ? `Annexure D - Page ${idx + 1}`
               : `Annexure D: ${p.name}`
           });
         });
@@ -13617,7 +13617,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure E — Page ${idx + 1}`
+              ? `Annexure E - Page ${idx + 1}`
               : `Annexure E: ${p.name}`
           });
         });
@@ -13636,7 +13636,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure G — Page ${idx + 1}`
+              ? `Annexure G - Page ${idx + 1}`
               : `Annexure G: ${p.name}`
           });
         });
@@ -13655,7 +13655,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure H — Page ${idx + 1}`
+              ? `Annexure H - Page ${idx + 1}`
               : `Annexure H: ${p.name}`
           });
         });
@@ -13674,7 +13674,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure I — Page ${idx + 1}`
+              ? `Annexure I - Page ${idx + 1}`
               : `Annexure I: ${p.name}`
           });
         });
@@ -13693,7 +13693,7 @@ const pdfPreview = {
           pages.push({
             src: img,
             label: p.pages.length > 1
-              ? `Annexure J — Page ${idx + 1}`
+              ? `Annexure J - Page ${idx + 1}`
               : `Annexure J: ${p.name}`
           });
         });
@@ -14104,8 +14104,8 @@ function loadDemoSdlcReport() {
     uploadedAt: new Date().toLocaleString(),
     verified: false,
     anx4: [
-      { name: `Route A (Lease to Highway — ${distName})`, dsrVal: '1500 Tons', sdlcVal: '1500 Tons', variance: '0%', matched: true },
-      { name: `Route B (Lease to Railhead — ${distName})`, dsrVal: '1200 Tons', sdlcVal: '1050 Tons', variance: '-12.5%', matched: false },
+      { name: `Route A (Lease to Highway - ${distName})`, dsrVal: '1500 Tons', sdlcVal: '1500 Tons', variance: '0%', matched: true },
+      { name: `Route B (Lease to Railhead - ${distName})`, dsrVal: '1200 Tons', sdlcVal: '1050 Tons', variance: '-12.5%', matched: false },
       { name: `Route C (Quarry to Bypass)`, dsrVal: '900 Tons', sdlcVal: '900 Tons', variance: '0%', matched: true }
     ],
     anx5: [
@@ -14114,12 +14114,12 @@ function loadDemoSdlcReport() {
       { id: `BM-03-${distName.substring(0,3).toUpperCase()}`, dsrCoords: '31.350, 75.604', sdlcCoords: '31.350, 75.604', dsrElev: '227.60 m', sdlcElev: '227.60 m', matched: true }
     ],
     anx6: [
-      { id: `Cluster 1 (Sutlej bed — ${distName})`, dsrVal: '18.50 Ha', sdlcVal: '17.90 Ha', variance: '-0.60 Ha', matched: false },
-      { id: `Cluster 2 (Beas bed — ${distName})`, dsrVal: '14.20 Ha', sdlcVal: '14.20 Ha', variance: '0.00 Ha', matched: true }
+      { id: `Cluster 1 (Sutlej bed - ${distName})`, dsrVal: '18.50 Ha', sdlcVal: '17.90 Ha', variance: '-0.60 Ha', matched: false },
+      { id: `Cluster 2 (Beas bed - ${distName})`, dsrVal: '14.20 Ha', sdlcVal: '14.20 Ha', variance: '0.00 Ha', matched: true }
     ],
     anx7: [
-      { name: `Highway Corridor — ${distName}`, dsrVal: '320 PCU/hr', sdlcVal: '375 PCU/hr', variance: '+17.2%', matched: false },
-      { name: `Tehsil Link Road — ${distName}`, dsrVal: '180 PCU/hr', sdlcVal: '180 PCU/hr', variance: '0%', matched: true }
+      { name: `Highway Corridor - ${distName}`, dsrVal: '320 PCU/hr', sdlcVal: '375 PCU/hr', variance: '+17.2%', matched: false },
+      { name: `Tehsil Link Road - ${distName}`, dsrVal: '180 PCU/hr', sdlcVal: '180 PCU/hr', variance: '0%', matched: true }
     ]
   };
   const fnText = document.getElementById('sdlc-upload-filename');

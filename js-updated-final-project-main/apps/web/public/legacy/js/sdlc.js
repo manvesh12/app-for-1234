@@ -82,8 +82,8 @@ function loadDemoSdlcReport() {
     uploadedAt: new Date().toLocaleString(),
     verified: false,
     anx4: [
-      { name: `Route A (Lease to Highway — ${distName})`, dsrVal: '1500 Tons', sdlcVal: '1500 Tons', variance: '0%', matched: true },
-      { name: `Route B (Lease to Railhead — ${distName})`, dsrVal: '1200 Tons', sdlcVal: '1050 Tons', variance: '-12.5%', matched: false },
+      { name: `Route A (Lease to Highway - ${distName})`, dsrVal: '1500 Tons', sdlcVal: '1500 Tons', variance: '0%', matched: true },
+      { name: `Route B (Lease to Railhead - ${distName})`, dsrVal: '1200 Tons', sdlcVal: '1050 Tons', variance: '-12.5%', matched: false },
       { name: `Route C (Quarry to Bypass)`, dsrVal: '900 Tons', sdlcVal: '900 Tons', variance: '0%', matched: true }
     ],
     anx5: [
@@ -92,12 +92,12 @@ function loadDemoSdlcReport() {
       { id: `BM-03-${distName.substring(0,3).toUpperCase()}`, dsrCoords: '31.350, 75.604', sdlcCoords: '31.350, 75.604', dsrElev: '227.60 m', sdlcElev: '227.60 m', matched: true }
     ],
     anx6: [
-      { id: `Cluster 1 (Sutlej bed — ${distName})`, dsrVal: '18.50 Ha', sdlcVal: '17.90 Ha', variance: '-0.60 Ha', matched: false },
-      { id: `Cluster 2 (Beas bed — ${distName})`, dsrVal: '14.20 Ha', sdlcVal: '14.20 Ha', variance: '0.00 Ha', matched: true }
+      { id: `Cluster 1 (Sutlej bed - ${distName})`, dsrVal: '18.50 Ha', sdlcVal: '17.90 Ha', variance: '-0.60 Ha', matched: false },
+      { id: `Cluster 2 (Beas bed - ${distName})`, dsrVal: '14.20 Ha', sdlcVal: '14.20 Ha', variance: '0.00 Ha', matched: true }
     ],
     anx7: [
-      { name: `Highway Corridor — ${distName}`, dsrVal: '320 PCU/hr', sdlcVal: '375 PCU/hr', variance: '+17.2%', matched: false },
-      { name: `Tehsil Link Road — ${distName}`, dsrVal: '180 PCU/hr', sdlcVal: '180 PCU/hr', variance: '0%', matched: true }
+      { name: `Highway Corridor - ${distName}`, dsrVal: '320 PCU/hr', sdlcVal: '375 PCU/hr', variance: '+17.2%', matched: false },
+      { name: `Tehsil Link Road - ${distName}`, dsrVal: '180 PCU/hr', sdlcVal: '180 PCU/hr', variance: '0%', matched: true }
     ]
   };
   const fnText = document.getElementById('sdlc-upload-filename');

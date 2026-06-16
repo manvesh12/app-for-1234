@@ -11,7 +11,7 @@ function renderSignatures() {
         <i data-lucide="${s.signed?'check':canSign?'clock':'lock'}" style="width:16px;height:16px;"></i>
       </div>
       <div class="sig-info">
-        <div class="sig-role">Authority ${s.order} — ${s.role}</div>
+        <div class="sig-role">Authority ${s.order} - ${s.role}</div>
         <div class="sig-name">${s.name}</div>
         <div class="sig-dept">${s.dept}</div>
         ${s.signed?`<div style="font-size:10.5px;color:var(--green);margin-top:3px">Signed: ${s.signedAt} via ${s.method}</div>
@@ -32,7 +32,7 @@ function renderSignatures() {
 }
 function openSign(id) {
   const s=S.signatures.find(x=>x.id===id);
-  document.getElementById('sign-modal-title').textContent=`Sign — ${s.role}`;
+  document.getElementById('sign-modal-title').textContent=`Sign - ${s.role}`;
   document.getElementById('sign-modal-content').innerHTML=`
     <div style="background:var(--off);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin-bottom:14px">
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin-bottom:4px">Signing as</div>
@@ -137,10 +137,10 @@ function renderFinalChecklist() {
     { name:'Chapters (10)', sub:'All 10 EMGSM 2020 chapters', ok:S.chapters.length>=10 },
     { name:'Plates', sub:'Maps, graphs, and site images', ok:S.plates.length>0 },
     { name:'Cross Section Graphs', sub:'Elevation profiles generated', ok:S.graphs.length>0 },
-    { name:'Annexure I — Sources', sub:'Rivers, de-siltation, patta lands, M-sand', ok:true },
-    { name:'Annexure II — Mining Leases', sub:'All potential leases listed', ok:true },
-    { name:'Annexure III — Clusters', sub:'Cluster and contiguous cluster details', ok:true },
-    { name:'Annexure IV — Transportation', sub:'Route details for all leases', ok:true },
+    { name:'Annexure I - Sources', sub:'Rivers, de-siltation, patta lands, M-sand', ok:true },
+    { name:'Annexure II - Mining Leases', sub:'All potential leases listed', ok:true },
+    { name:'Annexure III - Clusters', sub:'Cluster and contiguous cluster details', ok:true },
+    { name:'Annexure IV - Transportation', sub:'Route details for all leases', ok:true },
     { name:'Demand & Summary Tables', sub:'District-wise projections', ok:true },
     { name:`E-Signatures (${sigs}/5)`, sub:'Sequential authority signing', ok:sigs===5 }
   ];
@@ -172,7 +172,7 @@ function renderWorkflowChecklist() {
     {n:'All 10 Chapters',ok:S.chapters.length>=10,note:`${S.chapters.length}/10 chapters added`},
     {n:'Plate Section',ok:S.plates.length>0,note:`${S.plates.length} plates setup`},
     {n:'Cross Section Graphs',ok:S.graphs.length>0,note:`${S.graphs.length} sections generated`},
-    {n:'Annexures I–IV',ok:true,note:'All 4 annexures filled'},
+    {n:'Annexures I-IV',ok:true,note:'All 4 annexures filled'},
     {n:'Data Tables',ok:true,note:'Demand, auction, summary tables'},
     {n:'E-Signatures',ok:false,note:`${S.signatures.filter(s=>s.signed).length}/5 signed`}
   ];

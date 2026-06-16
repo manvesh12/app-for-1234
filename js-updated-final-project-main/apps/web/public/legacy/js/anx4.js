@@ -1,8 +1,8 @@
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANNEXURE IV â€” TRANSPORTATION ROUTES
+/* ══════════════════════════════════════
+   ANNEXURE IV - TRANSPORTATION ROUTES
    Supports multiple dynamic tables, context-aware Excel operations,
    and portrait PDF generation.
- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+ ══════════════════════════════════════ */
 const defaultRoutes = [
   [1, "Jalandhar Sutlej -\n1 Vill- Kadiana,\nBlock- Phillaur", "A-A'", 43, "NA", 0.73, "Unpaved", "Unpaved", "Lease Owner", "Route Map\nattached"],
   [2, "Jalandhar Sutlej -\n2 Vill- Kadiana,\nBlock- Phillaur", "B-B'", 315, "NA", 0.48, "Unpaved", "Unpaved", "Lease Owner", "Route Map\nattached"],
@@ -293,7 +293,7 @@ function downloadRouteTemplate(btn) {
   XLSX.utils.book_append_sheet(wb, ws, "Transportation_Routes");
   const safeFilename = title.replace(/[^a-z0-9]/gi, '_') + "_Template.xlsx";
   XLSX.writeFile(wb, safeFilename);
-  toast(`${title} Excel downloaded âœ“`, "success");
+  toast(`${title} Excel downloaded OK`, "success");
 }
 function downloadClusterTemplate(btn) {
   const card = btn ? btn.closest('.card') : document.querySelector('.table-block-card[data-type="cluster"]');
@@ -325,7 +325,7 @@ function downloadClusterTemplate(btn) {
   XLSX.utils.book_append_sheet(wb, ws, "Cluster_Routes");
   const safeFilename = title.replace(/[^a-z0-9]/gi, '_') + "_Template.xlsx";
   XLSX.writeFile(wb, safeFilename);
-  toast(`${title} Excel downloaded âœ“`, "success");
+  toast(`${title} Excel downloaded OK`, "success");
 }
 function uploadRoutes(event, btn) {
   const file = event.target.files[0];
@@ -353,7 +353,7 @@ function uploadRoutes(event, btn) {
         tbody.innerHTML = uploadRows.map(renderRouteRow).join("");
       }
       if (window.initLucide) window.initLucide();
-      toast(`Loaded ${dataRows.length} route(s) into ${title} âœ“`, "success");
+      toast(`Loaded ${dataRows.length} route(s) into ${title} OK`, "success");
     } catch (err) { toast("Error reading file: " + err.message, "error"); }
   };
   reader.readAsBinaryString(file);
@@ -385,7 +385,7 @@ function uploadClusters(event, btn) {
         tbody.innerHTML = uploadRows.map(renderClusterRow).join("");
       }
       if (window.initLucide) window.initLucide();
-      toast(`Loaded ${dataRows.length} cluster route(s) into ${title} âœ“`, "success");
+      toast(`Loaded ${dataRows.length} cluster route(s) into ${title} OK`, "success");
     } catch (err) { toast("Error reading file: " + err.message, "error"); }
   };
   reader.readAsBinaryString(file);

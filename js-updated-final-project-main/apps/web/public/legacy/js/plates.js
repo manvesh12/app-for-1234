@@ -14,7 +14,7 @@ function renderPlates() {
       fileInfoHTML = `
         <div class="file-item" style="margin-top:10px; background:var(--off); border:1px solid var(--border); max-width:480px; display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:var(--r-sm);">
           <div style="display:flex; align-items:center; gap:6px;">
-            <div class="file-icon" style="background:var(--teal-lt); color:var(--teal); padding:6px; border-radius:var(--r-xs); font-size:14px;">📄</div>
+            <div class="file-icon" style="background:var(--teal-lt); color:var(--teal); padding:6px; border-radius:var(--r-xs); font-size:14px;">PDF</div>
             <div style="line-height:1.2;">
               <div style="font-size:11.5px; font-weight:600; color:var(--text);">${p.fileName}</div>
               <div style="font-size:9.5px; color:var(--text-faint);">${p.fileSize || ''} · ${p.pages ? p.pages.length : 0} Page(s)</div>
@@ -56,7 +56,7 @@ function renderPlates() {
 function addPlate() {
   S.plates.push({
     id: Date.now(),
-    name: 'NEW PLATE — ENTER TITLE',
+    name: 'NEW PLATE - ENTER TITLE',
     summary: 'Enter plate description here...',
     fileName: null,
     fileSize: null,
@@ -94,7 +94,7 @@ function handlePlateUpload(e, id) {
       renderPdfToImages(f, (err, imgs) => {
         if (err) {
           console.error(err);
-          toast('⚠️ PDF render failed, falling back to basic preview', 'error');
+          toast('Warning: PDF render failed, falling back to basic preview', 'error');
           const url = URL.createObjectURL(f);
           p.pages = [url];
           p.fileSize = sizeStr;
@@ -105,7 +105,7 @@ function handlePlateUpload(e, id) {
         }
         p.pages = imgs;
         p.fileSize = sizeStr;
-        toast(`📄 ${f.name} processed and loaded!`, 'success');
+        toast(`PDF ${f.name} processed and loaded!`, 'success');
         renderPlates();
         if (window.pdfPreview) window.pdfPreview.notifyUpdate('plates');
         if (window.debouncedSaveState) window.debouncedSaveState();
@@ -124,14 +124,14 @@ function handlePlateUpload(e, id) {
       p.pages = [evt.target.result];
       p.fileName = f.name;
       p.fileSize = sizeStr;
-      toast(`🖼️ ${f.name} uploaded successfully!`, 'success');
+      toast(`Image ${f.name} uploaded successfully!`, 'success');
       renderPlates();
       if (window.pdfPreview) window.pdfPreview.notifyUpdate('plates');
       if (window.debouncedSaveState) window.debouncedSaveState();
     };
     reader.readAsDataURL(f);
   } else {
-    toast('❌ Unsupported file format. Please upload a PDF or an Image.', 'error');
+    toast('Error: Unsupported file format. Please upload a PDF or an Image.', 'error');
   }
 }
 function deletePlateFile(id) {

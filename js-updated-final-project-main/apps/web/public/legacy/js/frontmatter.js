@@ -115,12 +115,12 @@ function handleFMUpload(e, type) {
   if (el) {
     el.innerHTML = `
       <div class="file-item" style="margin-top:10px">
-        <div class="file-icon" style="background:#fee2e2">📄</div>
+        <div class="file-icon" style="background:#fee2e2">PDF</div>
         <div class="file-info">
           <div class="file-name">${f.name}</div>
           <div class="file-meta">${(f.size / 1024).toFixed(1)} KB</div>
         </div>
-        <span class="badge badge-green">✓ Ready</span>
+        <span class="badge badge-green">OK Ready</span>
       </div>`;
   }
   if (f.type === 'application/pdf') {
@@ -130,7 +130,7 @@ function handleFMUpload(e, type) {
     renderPdfToImages(f, (err, imgs) => {
       if (err) {
         console.error(err);
-        toast('⚠️ PDF render failed, falling back to basic preview', 'error');
+        toast('Warning: PDF render failed, falling back to basic preview', 'error');
         const url = URL.createObjectURL(f);
         if (!S.uploadedPDFs) S.uploadedPDFs = {};
         S.uploadedPDFs[type] = [url];
@@ -144,7 +144,7 @@ function handleFMUpload(e, type) {
       S.uploadedPDFs[type] = imgs;
       if (!S.frontMatterFiles) S.frontMatterFiles = {};
       S.frontMatterFiles[type] = { ...(S.frontMatterFiles[type] || {}), pages: imgs.length };
-      toast(`📄 ${f.name} uploaded and processed successfully!`, 'success');
+      toast(`PDF ${f.name} uploaded and processed successfully!`, 'success');
       if (window.pdfPreview) window.pdfPreview.notifyUpdate('front-matter');
       if (window.debouncedSaveState) window.debouncedSaveState();
     });
@@ -154,7 +154,7 @@ function handleFMUpload(e, type) {
     S.uploadedPDFs[type] = [url];
     if (!S.frontMatterFiles) S.frontMatterFiles = {};
     S.frontMatterFiles[type] = { ...(S.frontMatterFiles[type] || {}), pages: 1 };
-    toast(`📄 ${f.name} uploaded`, 'success');
+    toast(`PDF ${f.name} uploaded`, 'success');
     if (window.pdfPreview) window.pdfPreview.notifyUpdate('front-matter');
     if (window.debouncedSaveState) window.debouncedSaveState();
   }
@@ -190,12 +190,12 @@ function loadFrontMatter() {
       if (S.uploadedPDFs && S.uploadedPDFs[type]) {
         el.innerHTML = `
           <div class="file-item" style="margin-top:10px">
-            <div class="file-icon" style="background:#fee2e2">📄</div>
+            <div class="file-icon" style="background:#fee2e2">PDF</div>
             <div class="file-info">
               <div class="file-name">Previously Uploaded ${type.toUpperCase()} PDF</div>
               <div class="file-meta">${S.uploadedPDFs[type].length} Page(s)</div>
             </div>
-            <span class="badge badge-green">✓ Ready</span>
+            <span class="badge badge-green">OK Ready</span>
           </div>`;
       } else {
         el.innerHTML = '';

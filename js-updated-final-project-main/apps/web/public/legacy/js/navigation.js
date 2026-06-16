@@ -418,10 +418,10 @@ function showView(id, btn, push = true) {
   const titles = {
     'dashboard': 'Dashboard', 'projects': 'My DSR Projects', 'workflow': 'Report Workflow',
     'front-matter': 'Front Matter', 'chapters': 'Chapters (10)', 'plates': 'Plate Section',
-    'graphs': 'Cross Section Graph Generator', 'anx1': 'Annexure I — Sand Sources',
-    'anx2': 'Annexure II — Mining Leases', 'anx3': 'Annexure III — Cluster Details',
-    'anx4': 'Annexure IV — Transportation Routes', 'anx5': 'Annexure V — Bench Mark & CORS',
-    'anx6': 'Annexure VI — Final Cluster Details', 'anx7': 'Annexure VII — Transportation Routes',
+    'graphs': 'Cross Section Graph Generator', 'anx1': 'Annexure I - Sand Sources',
+    'anx2': 'Annexure II - Mining Leases', 'anx3': 'Annexure III - Cluster Details',
+    'anx4': 'Annexure IV - Transportation Routes', 'anx5': 'Annexure V - Bench Mark & CORS',
+    'anx6': 'Annexure VI - Final Cluster Details', 'anx7': 'Annexure VII - Transportation Routes',
     'annexure-b': 'Annexure B', 'annexure-c': 'Annexure C', 'annexure-d': 'Annexure D',
     'annexure-e': 'Annexure E', 'annexure-f': 'Annexure F', 'annexure-g': 'Annexure G',
     'annexure-h': 'Annexure H', 'annexure-i': 'Annexure I', 'annexure-j': 'Annexure J',
@@ -792,7 +792,7 @@ function refreshThemeDependentUI() {
   if (typeof renderDashboard === 'function') renderDashboard();
   if (typeof renderProjects === 'function') renderProjects();
   if (window.initLucide) initLucide();
-  /* Charts are heavy — defer so district/project cards repaint first */
+  /* Charts are heavy - defer so district/project cards repaint first */
   if (typeof renderGraphs === 'function') {
     requestAnimationFrame(() => renderGraphs());
   }

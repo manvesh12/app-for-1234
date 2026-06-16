@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   GRAPHS — CROSS SECTION
+   GRAPHS - CROSS SECTION
    ═══════════════════════════════════════════════════════════ */
 function isDarkMode() {
   return document.documentElement.classList.contains('dark');
@@ -195,7 +195,7 @@ function buildGraphHTML(g) {
           <div class="tbl-wrap" style="margin-top:10px;max-height:150px;overflow-y:auto">
             <table class="tbl" style="font-size:11px">
               <thead><tr><th>Dist</th><th>Post</th><th>Thick</th></tr></thead>
-              <tbody id="tbl-tbody-${g.id}">${o.dist.map((d, i) => `<tr><td>${d}</td><td>${o.post[i] ?? '—'}</td><td>${(o.thickPost[i] ?? 0).toFixed(2)}</td></tr>`).join('')}</tbody>
+              <tbody id="tbl-tbody-${g.id}">${o.dist.map((d, i) => `<tr><td>${d}</td><td>${o.post[i] ?? '-'}</td><td>${(o.thickPost[i] ?? 0).toFixed(2)}</td></tr>`).join('')}</tbody>
             </table>
           </div>
         </div>
@@ -363,7 +363,7 @@ function updateG(id, key, val) {
       if (elResultFormula) elResultFormula.innerHTML = `= ${fmtN(o.pArea, 2)} Ha × 10000 × ${o.activeCalcThick.toFixed(2)}m × ${g.bulk} × ${g.pct}%`;
       const elTbody = document.getElementById(`tbl-tbody-${id}`);
       if (elTbody) {
-        elTbody.innerHTML = o.dist.map((d, i) => `<tr><td>${d}</td><td>${o.post[i] ?? '—'}</td><td>${(o.thickPost[i] ?? 0).toFixed(2)}</td></tr>`).join('');
+        elTbody.innerHTML = o.dist.map((d, i) => `<tr><td>${d}</td><td>${o.post[i] ?? '-'}</td><td>${(o.thickPost[i] ?? 0).toFixed(2)}</td></tr>`).join('');
       }
       drawGraph(g);
     }, 400);
@@ -422,7 +422,7 @@ function buildPdfChartHelper(g, o, type, canvasEl) {
   const L1_red_color = '#de3b3b';
   const L1_thal_color = '#3b8bba';
   /* Layout 2 colour scheme (Excel / clean report style) */
-  const L2_elev_color = '#1f77b4';    // blue — matches clean report scheme
+  const L2_elev_color = '#1f77b4';    // blue - matches clean report scheme
   const L2_red_color = '#ff7f0e';    // orange
   const L2_thal_color = '#7f7f7f';    // grey
   const elevColor = isLayout2 ? L2_elev_color : L1_elev_color;
