@@ -2465,6 +2465,22 @@ html.dark .reviewer-notes-footer {
     bottom: 12px;
   }
 }
+
+/* Premium Box for Notice Marquee Container */
+.dash-notice-marquee-container {
+  background: rgba(15, 28, 42, 0.85) !important;
+  border: 1px solid rgba(242, 161, 35, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 4px 12px !important;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.2) !important;
+  margin: 0 12px !important;
+}
+
+html.dark .dash-notice-marquee-container {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(242, 161, 35, 0.2) !important;
+}
+
 body:not(.view-dashboard-active):not(.view-projects-active) {
   --topbar-h: 238px !important;
 }
