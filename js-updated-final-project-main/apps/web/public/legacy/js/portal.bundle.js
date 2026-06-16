@@ -2275,10 +2275,7 @@ function toggleSignUp(show) {
   }
 }
 function fillDemoLogin(username) {
-  const emailEl = document.getElementById('login-email');
-  const passEl = document.getElementById('login-pass');
-  if (emailEl && username) emailEl.value = username;
-  if (passEl) passEl.value = 'password123';
+  // Auto-fill disabled
 }
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim();
