@@ -208,7 +208,7 @@ modelDsrRouter.post("/generate", async (req, res) => {
         modelId,
         projectId: projectId ? BigInt(projectId) : null,
         status: GeneratedDsrStatus.FINAL,
-        dataPayload: isRecord(dataPayload) ? dataPayload : {}
+        dataPayload: (isRecord(dataPayload) ? dataPayload : {}) as any
       }
     });
 
