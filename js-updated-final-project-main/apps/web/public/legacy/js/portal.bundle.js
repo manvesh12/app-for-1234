@@ -1714,6 +1714,16 @@ function showView(id, btn, push = true) {
   if (typeof loadReviewerNoteForView === 'function') {
     loadReviewerNoteForView(id, titles[id] || id);
   }
+    // Force re-translation of newly loaded view DOM elements if language is not English
+    if (typeof currentPortalLanguage !== 'undefined' && currentPortalLanguage !== 'en') {
+      setTimeout(() => {
+        const combo = document.querySelector('.goog-te-combo');
+        if (combo) {
+          combo.value = currentPortalLanguage;
+          combo.dispatchEvent(new Event('change'));
+        }
+      }, 400);
+    }
 }
 function goBackView() {
   if (viewHistory.length > 0) {
