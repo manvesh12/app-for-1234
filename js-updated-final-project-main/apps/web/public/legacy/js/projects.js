@@ -526,9 +526,58 @@ async function openProject(id) {
         const index = S.projects.findIndex(p => p.id === S.activeProject.id);
         if (index >= 0) S.projects[index].anx7PdfName = stateSnapshot.anx7PdfName;
       }
-    }
-  } catch (err) {
-    console.error('Could not load project state:', err);
+  function renderAuthorityReports() {
+  const el = document.getElementById('authority-reports');
+  if (!el) return;
+
+  const authProjects = (S.projects || []).filter(p => p.progress >= 100 && p.signatures < 5);
+  if (authProjects.length === 0) {
+    el.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-soft); font-size: 14px;">No reports currently awaiting your signature.</div>';
+    return;
+  }
+
+  const reports = authProjects.map(p => {
+    return {
+      id: p.id,
+      title: p.title,
+      district: p.district,
+      by: 'System User', // Or use p.createdBy
+      at: p.createdAt || new Date().toLocaleDateString(),
+      status: 'Awaiting Your Signature',
+      done: Number(p.signatures) || 0,
+      sections: 17 // Assuming max chapters/annexures
+    };
+  });
+
+  el.innerHTML = reports.map(r => `
+    <div class="review-card">
+      <div class="review-card-hd">
+        <div><div style="font-size:14.5px;font-weight:700;color:var(--text)">${r.title}</div>
+          <div style="font-size:11px;color:var(--text-soft);margin-top:2px">Submitted by ${r.by} · ${r.at}</div></div>
+        <span class="badge ${r.status.includes('Awaiting') ? 'badge-saffron' : 'badge-amber'}">${r.status}</span>
+      </div>
+      <div class="review-card-bd">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+          <span class="badge badge-navy" style="display:inline-flex;align-items:center;gap:4px;"><i data-lucide="map-pin" style="width:12px;height:12px;"></i>${r.district}</span>
+          <span class="badge badge-teal" style="display:inline-flex;align-items:center;gap:4px;"><i data-lucide="check-circle-2" style="width:12px;height:12px;"></i>${r.done}/5 signed</span>
+          <span class="badge badge-navy" style="display:inline-flex;align-items:center;gap:4px;"><i data-lucide="file-text" style="width:12px;height:12px;"></i>${r.sections} sections</span>
+          <div style="flex:1"></div>
+          <button class="btn btn-outline btn-sm" onclick="openProject(${r.id}); toast('Project opened','info')">View Data</button>
+          <button class="btn btn-navy btn-sm" onclick="downloadProjectFinalPDF(${r.id})">Download</button>
+          <button class="btn btn-saffron btn-sm" onclick="openAuthoritySign(${r.id}, '${r.title.replace(/'/g, "\\'")}')">Sign Now</button>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:var(--text-soft);margin-bottom:7px">Signature Progress:</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          ${['SDO', 'DMO', 'DC', 'Director', 'Pr. Secy'].map((role, i) => `
+            <div style="display:flex;align-items:center;gap:4px;background:${i < r.done ? 'var(--green-lt)' : i === r.done ? 'var(--saffron-lt)' : 'var(--bg)'};border:1px solid ${i < r.done ? 'var(--green)' : i === r.done ? 'var(--saffron)' : 'var(--border)'};border-radius:99px;padding:4px 10px;font-size:11px;font-weight:600;color:${i < r.done ? 'var(--green)' : i === r.done ? 'var(--saffron)' : 'var(--text-faint)'}">
+              <i data-lucide="${i < r.done ? 'check-circle-2' : i === r.done ? 'clock' : 'minus-circle'}" style="width:12px;height:12px;"></i>
+              ${role}
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
+  initLucide();
+}not load project state:', err);
   }
   ['report-nav','annexure-nav','tables-nav','finalize-nav'].forEach(n=>{
     const el=document.getElementById(n); if(el) el.style.display='block';

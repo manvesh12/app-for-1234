@@ -134,7 +134,7 @@
           <div class="f-field">
             <label>Email Address</label>
             <div class="input-wrap">
-              <input type="email" id="login-email" value="iit@demo.com">
+              <input type="email" id="login-email" value="" placeholder="name@domain.gov.in">
             </div>
           </div>
 
@@ -145,25 +145,11 @@
                 style="font-size: 12px; color: #2563eb; text-decoration: none; font-weight: 600;">Forgot?</a>
             </label>
             <div class="input-wrap">
-              <input type="password" id="login-pass" value="password123">
+              <input type="password" id="login-pass" value="" placeholder="********">
             </div>
           </div>
 
-          <div class="f-field">
-            <label>Demo Account</label>
 
-            <select id="login-role" onchange="fillDemoLogin(this.value)">
-              <option value="iit@demo.com">IIT Ropar - Front Matter + Chapter 1-4 + Review</option>
-              <option value="sdo@demo.com">SDO - Chapter 5-10</option>
-              <option value="gis@demo.com">GIS - Plates + Graphs + Annexures + Review</option>
-              <option value="sdlc@demo.com">SDLC - District-level Data</option>
-              <option value="je@demo.com">JE - Field Data</option>
-              <option value="axen@demo.com">AXEN - Assigned Section</option>
-              <option value="reviewer1@gov.in">Reviewer 1 - Govt Review</option>
-              <option value="reviewer2@gov.in">Reviewer 2 - Govt Review</option>
-              <option value="admin@demo.com">Admin - Full Access</option>
-            </select>
-          </div>
           <div class="form-err" id="login-error" style="display:none; color:red; font-size:12px; margin-bottom:10px;">
           </div>
 
@@ -185,7 +171,7 @@
           <div class="f-field">
             <label>NIC ID</label>
             <div class="input-wrap">
-              <input type="text" id="auth-nic-id" value="NIC-8821">
+              <input type="text" id="auth-nic-id" value="" placeholder="Enter NIC ID">
             </div>
           </div>
 
@@ -196,7 +182,7 @@
                 style="font-size: 12px; color: #2563eb; text-decoration: none; font-weight: 600;">Forgot PIN?</a>
             </label>
             <div class="input-wrap">
-              <input type="password" id="auth-security-pin" value="123456">
+              <input type="password" id="auth-security-pin" value="" placeholder="******">
               <button type="button" class="btn-reveal" onclick="togglePinReveal()"
                 style="position:absolute; right:16px; top:12px; background:none; border:none; color:var(--text-soft); cursor:pointer;">
                 <i data-lucide="eye" style="width:18px;height:18px;"></i>
@@ -219,14 +205,14 @@
           <div class="f-field">
             <label>SDLC ID / Email</label>
             <div class="input-wrap">
-              <input type="text" id="sdlc-email" value="sdlc@demo.com">
+              <input type="text" id="sdlc-email" value="" placeholder="Enter SDLC ID or Email">
             </div>
           </div>
 
           <div class="f-field">
             <label>Password</label>
             <div class="input-wrap">
-              <input type="password" id="sdlc-pass" value="password123">
+              <input type="password" id="sdlc-pass" value="" placeholder="********">
             </div>
           </div>
 

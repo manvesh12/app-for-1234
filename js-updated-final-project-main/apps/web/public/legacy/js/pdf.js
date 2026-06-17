@@ -387,6 +387,11 @@ async function generateFinalPDF(regenerate = false) {
     showFinalPdfAccessDenied();
     return;
   }
+  
+  const prioritizeUploads = confirm(
+    "Content Selection:\n\nDo you want to REPLACE the system-generated annexures and tables with the documents you manually uploaded?\n\n- Click 'OK' to prioritize your UPLOADED content.\n- Click 'Cancel' to keep the SYSTEM-GENERATED tables and data."
+  );
+
   const progressBox = document.getElementById('final-pdf-progress');
   const progressLabel = document.getElementById('final-pdf-progress-label');
   const progressPct = document.getElementById('final-pdf-progress-pct');
@@ -429,8 +434,8 @@ async function generateFinalPDF(regenerate = false) {
     const W = 210;
     const H = 297;
     const pad = 15;
-    const navy = [11, 29, 58];
-    const blue = [26, 51, 102];
+    const navy = [23, 50, 77];
+    const blue = [23, 50, 77];
     const saffron = [196, 154, 88];
     const muted = [86, 96, 112];
     const district = document.getElementById('pdf-district')?.value || S.frontMatter?.district || S.activeProject?.district || 'Punjab';
@@ -451,23 +456,45 @@ async function generateFinalPDF(regenerate = false) {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
       doc.setTextColor(255, 255, 255);
-      doc.text('DISTRICT SURVEY REPORT - GOVERNMENT OF PUNJAB - EMGSM 2020', W / 2, 8, { align: 'center' });
+            doc.text('District Survey Report', pad, 8);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.text(district + ', Punjab', pad, 12);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.text('Preparation of Supplementary District Survey Report (DSR) for Minor Minerals', W/2, 8, { align: 'center' });
       doc.text(sectionTitle.slice(0, 42), W - pad, 8, { align: 'right' });
       doc.setDrawColor(...saffron);
       doc.setLineWidth(0.7);
       doc.line(pad, 15, W - pad, 15);
     };
-    const beginSection = (title) => {
-      doc.addPage();
-      sectionStarts.push({ title, page: doc.getCurrentPageInfo().pageNumber });
-      addHeader(title);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(15);
-      doc.setTextColor(...navy);
-      doc.text(title, pad, 28, { maxWidth: W - (pad * 2) });
-      doc.setDrawColor(220, 225, 232);
-      doc.line(pad, 34, W - pad, 34);
-      return 44;
+        const beginSection = (title, forceNewPage = true) => {
+      if (forceNewPage) {
+        doc.addPage();
+        sectionStarts.push({ title, page: doc.getCurrentPageInfo().pageNumber });
+        addHeader(title);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(15);
+        doc.setTextColor(...navy);
+        doc.text(title, pad, 28, { maxWidth: W - (pad * 2) });
+        doc.setDrawColor(220, 225, 232);
+        doc.line(pad, 34, W - pad, 34);
+        return 44;
+      } else {
+        let y = doc.lastAutoTable ? doc.lastAutoTable.finalY + 15 : 44;
+        if (y > 250) {
+          doc.addPage();
+          addHeader(title);
+          y = 28;
+        }
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(...navy);
+        doc.text(title, pad, y, { maxWidth: W - (pad * 2) });
+        doc.setDrawColor(220, 225, 232);
+        doc.line(pad, y + 4, W - pad, y + 4);
+        return y + 12;
+      }
     };
     const writeParagraph = (text, y, options = {}) => {
       if (!hasText(text)) return y;
@@ -515,10 +542,10 @@ async function generateFinalPDF(regenerate = false) {
       if (!body.some(row => row.some(cell => cell && !/^na$/i.test(cell)))) return null;
       return { head: head.length ? head : [body.shift() || ['Details']], body, rowMeta: bodyRows.map(row => row.meta) };
     };
-    const addTable = (table, title) => {
+        const addTable = (table, title, continuePage = false) => {
       const data = tableRowsFromElement(table);
       if (!data) return false;
-      let y = beginSection(title);
+      let y = beginSection(title, !continuePage);
       doc.autoTable({
         startY: y,
         margin: { left: pad, right: pad },
@@ -742,11 +769,14 @@ async function generateFinalPDF(regenerate = false) {
       }
       return null;
     };
-    const addNativeTablesAsPreviewFallback = (title, tableConfigs) => {
+        const addNativeTablesAsPreviewFallback = (title, tableConfigs) => {
       const before = doc.getNumberOfPages();
-      tableConfigs.forEach(cfg => {
+      tableConfigs.forEach((cfg, idx) => {
         const tables = cfg.all ? Array.from(document.querySelectorAll(cfg.selector)) : [document.querySelector(cfg.selector)].filter(Boolean);
-        tables.forEach((table, index) => addTable(table, `${cfg.title}${tables.length > 1 ? ` (${index + 1})` : ''}`));
+        tables.forEach((table, index) => {
+          const forceNewPage = (idx === 0 && index === 0);
+          addTable(table, `${cfg.title}${tables.length > 1 ? ` (${index + 1})` : ''}`, !forceNewPage);
+        });
       });
       const added = doc.getNumberOfPages() > before;
       if (!added) warnings.push(`${title} has no filled preview tables available.`);
@@ -781,8 +811,18 @@ async function generateFinalPDF(regenerate = false) {
       const blob = await waitForPreviewBlob(viewId);
       return blob ? pdfBlobToImages(blob) : [];
     };
-    const addAnnexureFromPreview = async (title, viewId) => {
+        const addAnnexureFromPreview = async (title, viewId) => {
       let pages = [];
+      const uploadKey = viewId.split('-')[0];
+      const hasUploads = S.uploadedPDFs && S.uploadedPDFs[uploadKey] && S.uploadedPDFs[uploadKey].length > 0;
+      
+      if (prioritizeUploads && hasUploads) {
+        pages = S.uploadedPDFs[uploadKey];
+        sectionStarts.push({ title, page: doc.getNumberOfPages() + 1 });
+        pages.forEach((page, index) => addImagePage(page, `${title} - Page ${index + 1}`));
+        return true;
+      }
+      
       try {
         pages = await withTimeout(getAnnexurePreviewPages(viewId), 14000, title);
       } catch (err) {
@@ -901,21 +941,20 @@ async function generateFinalPDF(regenerate = false) {
     doc.setFontSize(15);
     doc.setTextColor(...navy);
     doc.text('Table of Contents', pad, 28);
-    let tocY = 42;
-    sectionStarts.forEach(item => {
-      if (tocY > 278) {
-        doc.addPage();
-        addHeader('Table of Contents');
-        tocY = 28;
-      }
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor(...muted);
-      doc.text(item.title, pad, tocY, { maxWidth: W - 60 });
-      doc.text(String(item.page), W - pad, tocY, { align: 'right' });
-      doc.setDrawColor(225, 229, 235);
-      doc.line(pad, tocY + 1.5, W - pad, tocY + 1.5);
-      tocY += 7;
+        doc.autoTable({
+      startY: 42,
+      margin: { left: pad, right: pad },
+      head: [['Chapter No', 'Subject', 'Page No']],
+      body: sectionStarts.map((item, index) => {
+        let prefix = '';
+        if (item.title.toLowerCase().includes('chapter')) prefix = '';
+        else if (item.title.toLowerCase().includes('annexure')) prefix = '';
+        else prefix = index;
+        return [prefix, item.title, String(item.page)];
+      }),
+      theme: 'grid',
+      styles: { fontSize: 10, cellPadding: 3 },
+      headStyles: { fillColor: navy, textColor: [255, 255, 255] }
     });
     const totalPages = doc.getNumberOfPages();
     for (let p = 1; p <= totalPages; p += 1) {
