@@ -11527,12 +11527,14 @@ function renderFinalChecklist() {
   const sigs = S.signatures ? S.signatures.filter(s => s.signed).length : 0;
   
   const fmOk = !!(S.frontMatter && (
-    (S.frontMatter.title && S.frontMatter.title !== 'District Survey Report for Sand Mining') ||
-    (S.frontMatter.district && S.frontMatter.district !== 'Jalandhar') ||
-    (S.frontMatter.preface && S.frontMatter.preface.trim().length > 5)
-  ));
+      (S.frontMatter.title && S.frontMatter.title !== 'District Survey Report for Sand Mining') ||
+      (S.frontMatter.district && S.frontMatter.district !== 'Jalandhar') ||
+      (S.frontMatter.preface && S.frontMatter.preface.trim().length > 5)
+    )) || (S.frontMatterFiles && Object.keys(S.frontMatterFiles).length > 0);
   
-  const chaptersOk = S.chapters ? Object.values(S.chapters).filter(c => c && typeof c === 'string' && c.trim() && c.length > 20).length >= 10 : false;
+  let chapterCount = S.chapters ? Object.values(S.chapters).filter(c => c && typeof c === 'string' && c.trim() && c.length > 20).length : 0;
+    if (S.chapterPDFs) chapterCount += Object.keys(S.chapterPDFs).length;
+    const chaptersOk = chapterCount >= 10;
   const platesOk = S.plates && S.plates.length > 0;
   const graphsOk = S.graphs && S.graphs.length > 0;
   const anx1Ok = S.uploadedPDFs && !!S.uploadedPDFs.anx1;
@@ -15298,17 +15300,24 @@ function calculateProjectProgress(state) {
   let progress = 0;
   if (state.frontMatter) {
     let fmScore = 0;
-    if (state.frontMatter.title && state.frontMatter.title !== 'District Survey Report for Sand Mining') fmScore += 2;
-    if (state.frontMatter.district && state.frontMatter.district !== 'Jalandhar') fmScore += 2;
-    if (state.frontMatter.state && state.frontMatter.state !== 'Punjab') fmScore += 2;
-    if (state.frontMatter.preface && state.frontMatter.preface.trim().length > 5) fmScore += 2;
-    if (state.frontMatter.acknowledgement && state.frontMatter.acknowledgement.trim().length > 5) fmScore += 2;
+    if (state.frontMatter.title && state.frontMatter.title !== 'District Survey Report for Sand Mining') fmScore += 1;
+    if (state.frontMatter.district && state.frontMatter.district !== 'Jalandhar') fmScore += 1;
+    if (state.frontMatter.state && state.frontMatter.state !== 'Punjab') fmScore += 1;
+    if (state.frontMatter.preface && state.frontMatter.preface.trim().length > 5) fmScore += 1;
+    if (state.frontMatter.acknowledgement && state.frontMatter.acknowledgement.trim().length > 5) fmScore += 1;
     progress += fmScore;
   }
-  if (state.chapters) {
-    const filledChapters = Object.values(state.chapters).filter(c => c && typeof c === 'string' && c.trim() && c.length > 20).length;
-    progress += Math.min(30, filledChapters * 3);
+  if (state.frontMatterFiles) {
+    progress += Math.min(5, Object.keys(state.frontMatterFiles).length * 2);
   }
+  let chapterCount = 0;
+  if (state.chapters) {
+    chapterCount += Object.values(state.chapters).filter(c => c && typeof c === 'string' && c.trim() && c.length > 20).length;
+  }
+  if (state.chapterPDFs) {
+    chapterCount += Object.keys(state.chapterPDFs).length;
+  }
+  progress += Math.min(30, chapterCount * 3);
   if (state.plates && state.plates.length > 0) progress += 5;
   if (state.graphs && state.graphs.length > 0) progress += 5;
   if (state.uploadedPDFs) {
@@ -15317,7 +15326,10 @@ function calculateProjectProgress(state) {
   }
   const hasAdditional = state.annexureB || state.annexureC || state.annexureD || state.annexureE;
   if (hasAdditional && Object.keys(hasAdditional).length > 0) progress += 10;
-  if (state.signatures && state.signatures.length > 0) progress += 10;
+  if (state.signatures) {
+    const signedCount = state.signatures.filter(s => s.signed).length;
+    progress += Math.min(10, signedCount * 2);
+  }
   return Math.min(100, Math.floor(progress));
 }
 
