@@ -11522,33 +11522,49 @@ function doSign() {
   }
 }
 function renderFinalChecklist() {
-  const el=document.getElementById('final-checklist'); if(!el) return;
-  const sigs=S.signatures.filter(s=>s.signed).length;
-  const items=[
-    { name:'Front Matter', sub:'Cover, preface, content page', ok:true },
-    { name:'Chapters (10)', sub:'All 10 EMGSM 2020 chapters', ok:S.chapters.length>=10 },
-    { name:'Plates', sub:'Maps, graphs, and site images', ok:S.plates.length>0 },
-    { name:'Cross Section Graphs', sub:'Elevation profiles generated', ok:S.graphs.length>0 },
-    { name:'Annexure I - Sources', sub:'Rivers, de-siltation, patta lands, M-sand', ok:true },
-    { name:'Annexure II - Mining Leases', sub:'All potential leases listed', ok:true },
-    { name:'Annexure III - Clusters', sub:'Cluster and contiguous cluster details', ok:true },
-    { name:'Annexure IV - Transportation', sub:'Route details for all leases', ok:true },
-    { name:'Demand & Summary Tables', sub:'District-wise projections', ok:true },
-    { name:`E-Signatures (${sigs}/5)`, sub:'Sequential authority signing', ok:sigs===5 }
+  const el = document.getElementById('final-checklist');
+  if (!el) return;
+  const sigs = S.signatures ? S.signatures.filter(s => s.signed).length : 0;
+  
+  const fmOk = !!(S.frontMatter && (
+    (S.frontMatter.title && S.frontMatter.title !== 'District Survey Report for Sand Mining') ||
+    (S.frontMatter.district && S.frontMatter.district !== 'Jalandhar') ||
+    (S.frontMatter.preface && S.frontMatter.preface.trim().length > 5)
+  ));
+  
+  const chaptersOk = S.chapters ? Object.values(S.chapters).filter(c => c && typeof c === 'string' && c.trim() && c.length > 20).length >= 10 : false;
+  const platesOk = S.plates && S.plates.length > 0;
+  const graphsOk = S.graphs && S.graphs.length > 0;
+  const anx1Ok = S.uploadedPDFs && !!S.uploadedPDFs.anx1;
+  const anx2Ok = S.uploadedPDFs && !!S.uploadedPDFs.anx2;
+  const anx3Ok = S.uploadedPDFs && !!S.uploadedPDFs.anx3;
+  const anx4Ok = S.uploadedPDFs && !!S.uploadedPDFs.anx4;
+  const demandOk = S.demandDistricts && S.demandDistricts.length > 0;
+
+  const items = [
+    { name: 'Front Matter', sub: 'Cover, preface, content page', ok: fmOk },
+    { name: 'Chapters (10)', sub: 'All 10 EMGSM 2020 chapters', ok: chaptersOk },
+    { name: 'Plates', sub: 'Maps, graphs, and site images', ok: platesOk },
+    { name: 'Cross Section Graphs', sub: 'Elevation profiles generated', ok: graphsOk },
+    { name: 'Annexure I - Sources', sub: 'Rivers, de-siltation, patta lands, M-sand', ok: anx1Ok },
+    { name: 'Annexure II - Mining Leases', sub: 'All potential leases listed', ok: anx2Ok },
+    { name: 'Annexure III - Clusters', sub: 'Cluster and contiguous cluster details', ok: anx3Ok },
+    { name: 'Annexure IV - Transportation', sub: 'Route details for all leases', ok: anx4Ok },
+    { name: 'Demand & Summary Tables', sub: 'District-wise projections', ok: demandOk },
+    { name: `E-Signatures (${sigs}/5)`, sub: 'Sequential authority signing', ok: sigs === 5 }
   ];
-  el.innerHTML=items.map(it=>`
-    <div class="checklist-item ${it.ok?'done':''}" style="margin-bottom:8px">
+  el.innerHTML = items.map(it => `
+    <div class="checklist-item ${it.ok ? 'done' : ''}" style="margin-bottom:8px">
       <div class="ci-left">
-        <div class="ci-icon" style="background:${it.ok?'var(--green-lt)':'var(--bg)'};color:${it.ok?'var(--green)':'var(--text-faint)'};display:flex;align-items:center;justify-content:center;">
-          <i data-lucide="${it.ok?'check':'minus'}" style="width:16px;height:16px;"></i>
+        <div class="ci-icon" style="background:${it.ok ? 'var(--green-lt)' : 'var(--bg)'};color:${it.ok ? 'var(--green)' : 'var(--text-faint)'};display:flex;align-items:center;justify-content:center;">
+          <i data-lucide="${it.ok ? 'check' : 'minus'}" style="width:16px;height:16px;"></i>
         </div>
         <div><div class="ci-name">${it.name}</div><div class="ci-sub">${it.sub}</div></div>
       </div>
-      <span class="badge ${it.ok?'badge-green':'badge-gray'}">${it.ok?'Ready':'Pending'}</span>
+      <span class="badge ${it.ok ? 'badge-green' : 'badge-gray'}">${it.ok ? 'Ready' : 'Pending'}</span>
     </div>`).join('');
-  const total=10;
   const countEl = document.getElementById('pdf-page-count');
-  if (countEl) countEl.textContent = S.activeProject?.finalPdfPages || `~${(S.chapters.length*4)+(S.plates.length*1)+32} estimated`;
+  if (countEl) countEl.textContent = S.activeProject?.finalPdfPages || `~${(S.chapters.length * 4) + (S.plates.length * 1) + 32} estimated`;
   const resultBox = document.getElementById('final-pdf-result');
   if (resultBox) resultBox.style.display = S.activeProject?.finalPdfName ? 'block' : 'none';
   const warningBox = document.getElementById('final-pdf-warnings');
