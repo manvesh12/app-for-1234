@@ -167,3 +167,158 @@ authRouter.post("/register", async (req, res) => {
 
   res.json(jsonSafe({ success: true, username: user.username, fullName: user.fullName }));
 });
+
+const forgotPasswordSchema = z.object({
+  identifier: z.string().min(1)
+});
+
+const verifyOtpSchema = z.object({
+  identifier: z.string().min(1),
+  otp: z.string().length(6)
+});
+
+const resetPasswordSchema = z.object({
+  identifier: z.string().min(1),
+  otp: z.string().length(6),
+  newPassword: z.string().min(10).max(128).regex(/[A-Za-z]/).regex(/[0-9]/)
+});
+
+// Helper for generic success message
+const genericSuccess = { success: true, message: "If account exists, verification instructions have been sent." };
+
+authRouter.post("/forgot-password", async (req, res) => {
+  const parsed = forgotPasswordSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: "Identifier is required" });
+    return;
+  }
+
+  const { identifier } = parsed.data;
+  const user = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { email: identifier.toLowerCase() },
+        { mobileNumber: identifier }
+      ]
+    }
+  });
+
+  // Always return success to prevent user enumeration
+  if (!user || !user.active) {
+    res.json(genericSuccess);
+    return;
+  }
+
+  // Generate 6-digit OTP
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const otpHash = await bcrypt.hash(otp, 10);
+  
+  // Set expiration to 10 minutes from now
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
+  await prisma.passwordResetRequest.create({
+    data: {
+      userId: user.id,
+      identifier,
+      otpHash,
+      expiresAt
+    }
+  });
+
+  // TODO: Dispatch Email/SMS in a real app
+  console.log(`[MOCK EMAIL/SMS] OTP for ${identifier} is ${otp}`);
+  recordAudit(req, "PASSWORD_RESET_REQUESTED", { userId: user.id, identifier }, 200);
+
+  res.json(genericSuccess);
+});
+
+authRouter.post("/verify-reset-otp", async (req, res) => {
+  const parsed = verifyOtpSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: "Invalid payload" });
+    return;
+  }
+
+  const { identifier, otp } = parsed.data;
+
+  const resetReq = await prisma.passwordResetRequest.findFirst({
+    where: { identifier, used: false },
+    orderBy: { createdAt: 'desc' }
+  });
+
+  if (!resetReq) {
+    res.status(400).json({ error: "Invalid or expired OTP" });
+    return;
+  }
+
+  if (resetReq.expiresAt < new Date()) {
+    res.status(400).json({ error: "OTP expired" });
+    return;
+  }
+
+  if (resetReq.attemptCount >= 5) {
+    res.status(429).json({ error: "Too many attempts, please request a new OTP." });
+    return;
+  }
+
+  const isValid = await bcrypt.compare(otp, resetReq.otpHash);
+  if (!isValid) {
+    await prisma.passwordResetRequest.update({
+      where: { id: resetReq.id },
+      data: { attemptCount: { increment: 1 } }
+    });
+    res.status(400).json({ error: "Invalid OTP" });
+    return;
+  }
+
+  res.json({ success: true, message: "OTP verified" });
+});
+
+authRouter.post("/reset-password", async (req, res) => {
+  const parsed = resetPasswordSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: "Invalid payload or password doesn't meet criteria" });
+    return;
+  }
+
+  const { identifier, otp, newPassword } = parsed.data;
+
+  const resetReq = await prisma.passwordResetRequest.findFirst({
+    where: { identifier, used: false },
+    orderBy: { createdAt: 'desc' }
+  });
+
+  if (!resetReq || resetReq.expiresAt < new Date() || resetReq.attemptCount >= 5) {
+    res.status(400).json({ error: "Invalid or expired session. Please request a new OTP." });
+    return;
+  }
+
+  const isValid = await bcrypt.compare(otp, resetReq.otpHash);
+  if (!isValid) {
+    res.status(400).json({ error: "Invalid OTP" });
+    return;
+  }
+
+  // Update password
+  const newPasswordHash = await bcrypt.hash(newPassword, 10);
+  await prisma.user.update({
+    where: { id: resetReq.userId },
+    data: { password: newPasswordHash }
+  });
+
+  // Mark as used
+  await prisma.passwordResetRequest.update({
+    where: { id: resetReq.id },
+    data: { used: true }
+  });
+
+  // Revoke all refresh tokens for this user
+  await prisma.refreshToken.updateMany({
+    where: { userId: resetReq.userId },
+    data: { revoked: true }
+  });
+
+  recordAudit(req, "PASSWORD_RESET_SUCCESS", { userId: resetReq.userId }, 200);
+
+  res.json({ success: true, message: "Password reset successful" });
+});

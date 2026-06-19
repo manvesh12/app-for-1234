@@ -62,6 +62,7 @@ model User {
   fullName    String
   username    String   @unique
   email       String   @unique
+  mobileNumber String? @unique
   password    String
   role        Role
   district    String?
@@ -217,4 +218,17 @@ model GeneratedDsrVersion {
   createdAt      DateTime      @default(now())
 
   generatedDsr   GeneratedDsr  @relation(fields: [generatedDsrId], references: [id], onDelete: Cascade)
+}
+
+model PasswordResetRequest {
+  id            BigInt   @id @default(autoincrement())
+  userId        BigInt
+  identifier    String   // Email or Mobile number
+  otpHash       String
+  expiresAt     DateTime
+  attemptCount  Int      @default(0)
+  used          Boolean  @default(false)
+  createdAt     DateTime @default(now())
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
